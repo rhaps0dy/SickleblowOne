@@ -1,0 +1,141 @@
+\documentclass[12pt,a4paper,oneside]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[catalan]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage[left=1.5cm,right=1.5cm,top=1.5cm,bottom=1.5cm]{geometry}
+\parskip 7.2pt
+\parindent 0pt
+
+\begin{document}
+\title{Disseny del joc SickleBlowOne}
+\author{Adrià Garriga Alonso}
+\maketitle
+Llegenda: \textbf{Classe abstracta}
+\begin{itemize}
+\item \textit{Classe:} hereda de l'anterior
+\end{itemize}
+
+\section{Explicació de totes les classes}
+\textbf{Level:} tot el que tregui dades aptes per a \textbf{LevelRenderer}
+\begin{itemize}
+\item \textbf{PLevel:} tot nivell que realitza simulacions físiques a partir de moviment i accions dels seus jugadors
+\begin{itemize}
+\item \textit{PLevelDeProva}
+\item \textit{PLevelCampDeBatalla}
+\item \textit{etc.} tots els nivells específics. Cadascun en una llibreria compartida.
+\end{itemize}
+\item \textbf{NLevel:} es basa en dades rebudes per un \textit{NetworkManager}
+\begin{itemize}
+\item \textit{NLevelDeProva}
+\item\textit{NLevelCampDeBatalla}
+\item\textit{etc.} tots els nivells específics. Cadascun en una llibreria compartida.
+\end{itemize}
+\end{itemize}
+
+\textbf{Player}: tot el que treu dades renderitzables per un \textbf{PlayerRenderer}
+\begin{itemize}
+\item\textbf{PPlayer}: mira els controls d'una \textbf{Interface} i mou un objecte físic i fa accions en un \textbf{PLevel} de manera corresponent.
+\begin{itemize}
+\item \textit{PPlayerBoxejador}
+\item\textit{PPlayerCavallerGel}
+\item\textit{etc.} tots els jugadors específics. Cadascun en una llibreria compartida.
+\end{itemize}
+\item\textbf{NPlayer}: es mou basat en un \textit{NetworkManager}
+\begin{itemize}
+\item \textit{NPlayerBoxejador}
+\item\textit{NPlayerCavallerGel}
+\item\textit{etc.} tots els jugadors específics. Cadascun en una llibreria compartida.
+\end{itemize}
+\end{itemize}
+
+\textbf{Interface:} tradueix algun tipus d'input en dades identificables per a un \textbf{PPlayer}
+\begin{itemize}
+\item\textit{JoystickInterface:} agafa un OIS::Joystick
+\item\textit{KeyboardInterface:} agafa un OIS::Keyboard
+\item\textit{NetworkInterface:} agafa dades d'un \textit{NetworkManager}
+\end{itemize}
+
+\textbf{PlayerRenderer:} A partir d'un \textbf{Player}, dibuixa el jugador en la pantalla
+\begin{itemize}
+\item\textit{PlayerRendererBoxejador}
+\item\textit{PlayerRendererCavallerGel}
+\item\textit{etc.}
+\end{itemize}
+
+\textbf{LevelRenderer:} A partir d'un \textbf{Level}, dibuixa el nivell en la pantalla
+\begin{itemize}
+\item\textit{LevelRendererDeProva}
+\item\textit{LevelRendererDeBatalla}
+\item\textit{etc.}
+\end{itemize}
+
+\textbf{GameSetup:} (semi-abstracta) A partir de l'entrada de ratolí i teclat i les dades de jugadors i nivells dibuixa la HUD (barres de vida, nº de vides, opcions quan es criden...) i mou el ``flow'' del loop corresponent. També representa cadascun dels modes de joc.\\
+Hereda de Ogre::FrameListener, Ogre::WindowEventListener, OIS::KeyboardListener i OIS::MouseListener.\\
+Cada subclasse té la seva llibreria compartida pròpia.
+\begin{itemize}
+\item \textit{GameSetupLocalProva}: partida local de prova. Un sol jugador local. Conté:
+\begin{itemize}
+\item PLevel: crea
+\item PPlayer: crea i registra al PLevel
+\item Interface: crea i registra al PPlayer
+\item PlayerRenderer: crea i registra-li el PPlayer
+\item LevelRenderer: crea i registra-li el PLevel
+\end{itemize}
+\item\textit{GameSetupLocal1v1:}
+\begin{itemize}
+\item 1 PLevel
+\item 2 PPlayer
+\item 2 Interface
+\item 2 PlayerRenderer
+\item 1 LevelRenderer
+\end{itemize}
+\item\textit{GameSetupServer1v1:}
+\begin{itemize}
+\item 1 PLevel
+\item 2 PPlayer
+\item 1 Interface
+\item 1 NetworkInterface
+\item 1 NetworkManager
+\item 1 LevelRenderer
+\item 2 PlayerRenderer
+\end{itemize}
+\item\textit{GameSetupClient1v1:}
+\begin{itemize}
+\item 1 NLevel
+\item 2 NPlayer
+\item 1 Interface: ficar pel NetworkManager
+\item 1 NetworkManager
+\item 1 LevelRenderer
+\item 2 PlayerRenderer
+\end{itemize}
+\item\textit{GameSetupServer1v1:}
+\begin{itemize}
+\item 1 PLevel
+\item 2 PPlayer
+\item 2 NetworkInterface
+\item 1 NetworkManager
+\end{itemize}
+\item\textit{GameSetupSpectator1v1:}
+\begin{itemize}
+\item 1 NLevel
+\item 2 NPlayer
+\item 1 NetworkManager
+\end{itemize}
+\end{itemize}
+
+\textit{NetworkManager:} s'ocupa de la comunicació via UDP i TCP/IP amb altres \textit{NetworkManager}.\\ (TODO: EXTENDRE)
+
+\textit{GUILauncher:} S'ocupa de la GUI que s'inicia quan s'inicia el joc. Segons les opcions seleccionades, configura els gràfics,  updateja el client al principi, fer login quan selecciones jugar en xarxa, configura el so, els controls, ensenya les taules de puntuacions... Bàsicament conté tota la GUI que no està dins de la partida. Quan es selecciona l'opció carrega recursos, inicia el GameSetup corresponent i li passa control.\\
+Hereda de Ogre::FrameListener, Ogre::WindowEventListener, OIS::KeyboardListener i OIS::MouseListener.\\ (TODO: EXTENDRE)
+
+\section{La funció main}
+\subsection{El Client}
+Inicia Ogre i el GUILauncher. Registra el GUILauncher com a FrameListener.
+
+\subsection{El Servidor}
+Inicia el NetworkManager, i segons les peticions que rep aquest crea el GameSetupServer corresponent.
+\end{document}
