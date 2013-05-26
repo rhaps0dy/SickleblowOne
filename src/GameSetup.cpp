@@ -28,12 +28,6 @@ mContinue(true)
 GameSetup::~GameSetup(void)
 {
 	Ogre::WindowEventUtilities::removeWindowEventListener(mWindow, this);
-}
-
-
-void GameSetup::destroyEverything(void)
-{
-	
 	if(mCamera)
 	{
 		mSceneMgr->destroyCamera(mCamera);
@@ -56,28 +50,28 @@ void GameSetup::destroyEverything(void)
 		mInputManager = 0;
 	
 	}*/
-	mContinue = false;	
 }
 
 void GameSetup::createScene(void)
 {
-	std::cerr << "creant escena\n";
+	Ogre::LogManager::getSingletonPtr()->logMessage("Creant escena\n");
 }
 
 void GameSetup::loadResources(void)
 {
-	std::cerr << "Carregant recursos";
+	Ogre::LogManager::getSingletonPtr()->logMessage("Carregant recursos\n");
 }
 
 bool GameSetup::frameRenderingQueued(const Ogre::FrameEvent &evt)
 {
 	return mContinue;
 }
+
 bool GameSetup::windowClosing(Ogre::RenderWindow *rw)
 {
 	if(rw==mWindow)
 	{
-		destroyEverything();
+		mContinue = false;
 		return true;
 	}
 	return false;

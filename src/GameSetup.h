@@ -6,6 +6,7 @@
 #include <OgreSceneManager.h>
 #include <OgreRenderWindow.h>
 #include <OgreCamera.h>
+#include <OgreLogManager.h>
 
 #include <OgreMath.h>
 
@@ -33,7 +34,6 @@ protected:
     //continuem renderitzant?
     bool mContinue;
     
-    void destroyEverything(void); //destrueix scenemanager, camara... etc deixant nomes Root i RenderWindow
     virtual void createScene(void); //crea totes les instancies de classes necessaries per al mode de joc
     virtual void loadResources(void); //Carrega els recursos necessaris
     

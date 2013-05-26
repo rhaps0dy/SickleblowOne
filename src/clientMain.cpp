@@ -1,6 +1,8 @@
 #include "GameSetup.h"
+
 #include <OgreRoot.h>
 #include <OgreException.h>
+#include <OgreLogManager.h>
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
 #include "windows.h"
@@ -64,14 +66,20 @@ int main(int argc, char **argv)
 		Ogre::NameValuePairList lParams;
 		lParams["vsync"] = "true";
 		lWindow = lRoot->createRenderWindow("Client for SickleblowOne", 1280, 720, false, &lParams);
-				
+		
+		//TODO: Llistem tots els llocs on hi ha recursos
+		
+		
+		
+		
+		
 		//Creem un GameSetup --provisional
 		GameSetup *lGameSetup = new GameSetup(lRoot, lWindow);
 		
 		delete lGameSetup;
 		delete lRoot;
 		
-		std::cerr << "fi del programa :D\n";
+		Ogre::LogManager::getSingletonPtr()->logMessage("Fi del programa");
 		
 	}catch(Ogre::Exception &e)
 	{
