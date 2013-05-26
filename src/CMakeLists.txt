@@ -1,4 +1,4 @@
-add_executable(SickleblowOneClient clientMain.cpp)
+add_executable(SickleblowOneClient clientMain.cpp GameSetup.cpp)
 
 target_link_libraries(SickleblowOneClient OgreMain OIS)
 

@@ -1,8 +1,13 @@
-//#include "GameSetup.h"
+#include "GameSetup.h"
 #include <OgreRoot.h>
 #include <OgreException.h>
 
+#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
+#include "windows.h"
+INT WINAPI WinMain( HINSTANCE hInst, HINSTANCE, LPSTR strCmdLine, INT )
+#else
 int main(int argc, char **argv)
+#endif
 {
 	try
 	{
@@ -59,15 +64,15 @@ int main(int argc, char **argv)
 		Ogre::NameValuePairList lParams;
 		lParams["vsync"] = "true";
 		lWindow = lRoot->createRenderWindow("Client for SickleblowOne", 1280, 720, false, &lParams);
-		
-		//Carreguem un octree manager
-	    mSceneMgr = mRoot->createSceneManager(Ogre::ST_GENERIC);
-
-		
-		
+				
 		//Creem un GameSetup --provisional
+		GameSetup *lGameSetup = new GameSetup(lRoot, lWindow);
 		
+		delete lGameSetup;
 		delete lRoot;
+		
+		std::cerr << "fi del programa :D\n";
+		
 	}catch(Ogre::Exception &e)
 	{
 		#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
