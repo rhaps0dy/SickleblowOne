@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 2.6)
 project(SickleblowOne)
 
+set(CMAKE_INSTALL_PREFIX /home/adria/cpp/SickleblowOne/dist)
+
 if(UNIX)
 link_directories(/usr/local/lib)
 include_directories(/usr/local/include)

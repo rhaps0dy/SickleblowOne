@@ -1,8 +1,11 @@
-#include "GameSetup.h"
+#include "gamesetups/GameSetupLocalProva.h"
+#include "Interface.h"
 
 #include <OgreRoot.h>
 #include <OgreException.h>
 #include <OgreLogManager.h>
+#include <OgreDynLibManager.h>
+#include <OgreDynLib.h>
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
 #include "windows.h"
@@ -14,7 +17,7 @@ int main(int argc, char **argv)
 	try
 	{
 		//Iniciem OGRE
-		Ogre::Root *lRoot = new Ogre::Root("", "", "ogre.log");
+		Ogre::Root *lRoot = new Ogre::Root("", "", "SickleblowOne.log");
 		
 		lRoot->loadPlugin("Plugin_OctreeSceneManager");
 		
@@ -74,13 +77,16 @@ int main(int argc, char **argv)
 		
 		
 		//Creem un GameSetup --provisional
-		GameSetup *lGameSetup = new GameSetup(lRoot, lWindow);
+		Ogre::DynLib *dlib = Ogre::DynLibManager::getSingleton().load("gamesetups/libGameSetupLocalProva.so");
+		void* lGslpMaker = dlib->getSymbol("GameSetupLocalProva_maker");
 		
+		GameSetup *lGameSetup = ( reinterpret_cast<GameSetup* (*) (Ogre::Root*, Ogre::RenderWindow*, Ogre::String, Ogre::String)> (lGslpMaker) )(lRoot, lWindow, "abc", "cde");
 		delete lGameSetup;
-		delete lRoot;
+		Ogre::DynLibManager::getSingleton().unload(dlib);
 		
 		Ogre::LogManager::getSingletonPtr()->logMessage("Fi del programa");
-		
+		delete lRoot;
+	
 	}catch(Ogre::Exception &e)
 	{
 		#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32

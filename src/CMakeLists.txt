@@ -1,5 +1,9 @@
-add_executable(SickleblowOneClient clientMain.cpp GameSetup.cpp)
+add_subdirectory(interfaces)
+add_subdirectory(gamesetups)
+add_subdirectory(configScripts)
 
-target_link_libraries(SickleblowOneClient OgreMain OIS)
+add_executable(SickleblowOneClient GameSetup.cpp clientMain.cpp)
 
-install(TARGETS SickleblowOneClient DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/../../bin)
+target_link_libraries(SickleblowOneClient OgreMain OIS dl)
+
+install(TARGETS SickleblowOneClient DESTINATION .)
