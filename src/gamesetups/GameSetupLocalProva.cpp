@@ -7,6 +7,14 @@ GameSetupLocalProva::GameSetupLocalProva(Ogre::Root *root, Ogre::RenderWindow *r
 	mRoot->startRendering();
 }
 
+void GameSetupLocalProva::createScene(void)
+{
+	mLevel = new Level();
+	 if(mPlayerName == "pl_Sinbad")
+	 {
+		 mPlayer = new Player(mLevel, );
+	 }
+}
 
 extern "C"
 {

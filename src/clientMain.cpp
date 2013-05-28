@@ -7,8 +7,18 @@
 #include <OgreDynLibManager.h>
 #include <OgreDynLib.h>
 
+#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
+#include <macUtils.h>
+#endif
+
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
 #include "windows.h"
+#endif
+
+//typedef per a la funcio que crea GameSetupLocalProva
+typedef GameSetup *(*gslp_maker) (Ogre::Root*, Ogre::RenderWindow*, Ogre::String, Ogre::String);
+
+#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
 INT WINAPI WinMain( HINSTANCE hInst, HINSTANCE, LPSTR strCmdLine, INT )
 #else
 int main(int argc, char **argv)
@@ -77,10 +87,14 @@ int main(int argc, char **argv)
 		
 		
 		//Creem un GameSetup --provisional
+#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
+		Ogre::DynLib *dlib = Ogre::DynLibManager::getSingleton().load(Ogre::String(Ogre::macBundlePath()+"gamesetups/libGameSetupLocalProva.so"));
+#else
 		Ogre::DynLib *dlib = Ogre::DynLibManager::getSingleton().load("gamesetups/libGameSetupLocalProva.so");
+#endif 
 		void* lGslpMaker = dlib->getSymbol("GameSetupLocalProva_maker");
 		
-		GameSetup *lGameSetup = ( reinterpret_cast<GameSetup* (*) (Ogre::Root*, Ogre::RenderWindow*, Ogre::String, Ogre::String)> (lGslpMaker) )(lRoot, lWindow, "abc", "cde");
+		GameSetup *lGameSetup = reinterpret_cast<gslp_maker>(lGslpMaker)(lRoot, lWindow, "pl_Sinbad", "lvl_Prova");
 		delete lGameSetup;
 		Ogre::DynLibManager::getSingleton().unload(dlib);
 		

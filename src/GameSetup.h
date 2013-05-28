@@ -20,6 +20,9 @@
 #include <OISException.h>
 
 
+#include "Player.h"
+#include "Level.h"
+
 class GameSetup: public Ogre::FrameListener, public Ogre::WindowEventListener, public OIS::KeyListener, public OIS::MouseListener
 {
 protected:
