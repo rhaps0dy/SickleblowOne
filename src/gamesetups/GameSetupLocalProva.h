@@ -13,9 +13,12 @@ private:
 	Level *mLevel;
 	Interface *mInterface;
 	
+	void createScene(void);
+	bool frameRenderingQueued(const Ogre::FrameEvent &evt);
+	
 public:
 	GameSetupLocalProva(Ogre::Root *root, Ogre::RenderWindow *rw, Ogre::String plnm, Ogre::String lvnm);
-	//~GameSetupLocalProva(void);
+	~GameSetupLocalProva(void);
 };
 
 #endif //_GameSetupLocalProva_h_

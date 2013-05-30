@@ -1,16 +1,15 @@
 #include "Player.h"
 
-Player::Player(Level *plvl, Interface *iface)
-: mParentLevel(plvl), mInterface(iface), mX(0.0f), mY(0.0f)
+Player::Player(Interface *iface)
+: mInterface(iface), mX(0.0f), mY(0.0f)
 {
-	mParentLevel->registerPlayer(this);
 }
 
 Player::~Player(void)
 {
-	mParentLevel->unregisterPlayer(this);
 }
 
+inline
 void Player::setX(const Ogre::Real &x, bool rel)
 {
 	if(rel)
@@ -21,6 +20,7 @@ void Player::setX(const Ogre::Real &x, bool rel)
 	mX = x;
 }
 
+inline
 void Player::setY(const Ogre::Real &y, bool rel)
 {
 	if(rel)
@@ -31,6 +31,7 @@ void Player::setY(const Ogre::Real &y, bool rel)
 	mY = y;
 }
 
+inline
 void Player::setPos(const Ogre::Vector2 &pos, bool rel)
 {
 	if(rel)
@@ -41,4 +42,10 @@ void Player::setPos(const Ogre::Vector2 &pos, bool rel)
 	}
 	mX = pos.x;
 	mY = pos.y;
+}
+
+void Player::update(Ogre::Real dt)
+{
+	mInterface->update();
+	std::cerr << mInterface->getStatus() << std::endl;
 }

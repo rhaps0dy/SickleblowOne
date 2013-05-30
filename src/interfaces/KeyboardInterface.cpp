@@ -76,3 +76,11 @@ void KeyboardInterface::update(void)
 	else
 		joyX = 0;
 }
+
+extern "C"
+{
+	KeyboardInterface* KeyboardInterface_maker(OIS::Keyboard *_kb, std::string _cfgfile)
+	{
+		return new KeyboardInterface(_kb, _cfgfile);
+	}
+}

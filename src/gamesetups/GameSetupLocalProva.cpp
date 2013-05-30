@@ -7,13 +7,34 @@ GameSetupLocalProva::GameSetupLocalProva(Ogre::Root *root, Ogre::RenderWindow *r
 	mRoot->startRendering();
 }
 
+GameSetupLocalProva::~GameSetupLocalProva(void)
+{
+	delete mInterface;
+	delete mPlayer;
+	delete mLevel;
+	GameSetup::destroyAll();
+	ClassLoader::unloadKeyboardInterface();
+}
+
 void GameSetupLocalProva::createScene(void)
 {
+	GameSetup::createScene();
 	mLevel = new Level();
-	 if(mPlayerName == "pl_Sinbad")
-	 {
-		 mPlayer = new Player(mLevel, );
-	 }
+	mInterface = ClassLoader::makeKeyboardInterface(mKeyboard);
+	
+	if(mPlayerName == "Sinbad")
+	{
+		mPlayer = new Player(mInterface);
+	}
+	 
+	mLevel->registerPlayer(mPlayer);
+}
+
+bool GameSetupLocalProva::frameRenderingQueued(const Ogre::FrameEvent &evt)
+{
+	mContinue = GameSetup::frameRenderingQueued(evt);
+	mLevel->update(evt.timeSinceLastFrame);
+	return mContinue;
 }
 
 extern "C"

@@ -1,9 +1,9 @@
 #ifndef _Interface_h_
 #define _Interface_h_
 
-//lloc on hi ha les llibreries compartides
-//dels tipus d'interficie
-#define INTERFACES_DIR "interfaces"
+#include <OISKeyboard.h>
+#include <OISMouse.h>
+#include <OISJoyStick.h>
 
 #define MAX_JOY 0x7f
 #define MIN_JOY -0x8f

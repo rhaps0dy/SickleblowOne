@@ -50,7 +50,7 @@ mContinue(true)
     mMouse->setEventCallback(this);
     mKeyboard->setEventCallback(this);
 }
-GameSetup::~GameSetup(void)
+void GameSetup::destroyAll(void)
 {
 	Ogre::LogManager::getSingletonPtr()->logMessage("Destruint GameSetup");
 	Ogre::WindowEventUtilities::removeWindowEventListener(mWindow, this);
@@ -109,27 +109,22 @@ bool GameSetup::windowClosing(Ogre::RenderWindow *rw)
 //Events per a CEGUI. TODO: fer que cridin events de CEGUI
 bool GameSetup::keyPressed(const OIS::KeyEvent &arg)
 {
-	std::cerr << "Tecla " << arg.text << " apretada\n";
 	if(arg.key==OIS::KC_ESCAPE) mContinue = false;
 	return true;
 }
 bool GameSetup::keyReleased(const OIS::KeyEvent &arg)
 {
-	std::cerr << "Tecla " << arg.text << " deixada\n";
 	return true;
 }
 bool GameSetup::mouseMoved (const OIS::MouseEvent &arg)
 {
-	std::cerr << "Ratoli mogut\n";
 	return true;
 }
 bool GameSetup::mousePressed (const OIS::MouseEvent &arg, OIS::MouseButtonID id)
 {
-	std::cerr << "Boto " << id << " apretat\n";
 	return true;
 }
 bool GameSetup::mouseReleased (const OIS::MouseEvent &arg, OIS::MouseButtonID id)
 {
-	std::cerr << "Boto " << id << " deixat\n";
 	return true;
 }
