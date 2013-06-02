@@ -19,9 +19,6 @@ mContinue(true)
 	mCamera->setProjectionType(Ogre::PT_PERSPECTIVE);
 	mCamera->setFOVy(Ogre::Degree(40.));
 	
-	loadResources();
-	createScene();
-	
 	Ogre::WindowEventUtilities::addWindowEventListener(mWindow, this);
 	mRoot->addFrameListener(this);
 	
@@ -78,16 +75,6 @@ void GameSetup::destroyAll(void)
 	}
 }
 
-void GameSetup::createScene(void)
-{
-	Ogre::LogManager::getSingletonPtr()->logMessage("Creant escena\n");
-}
-
-void GameSetup::loadResources(void)
-{
-	Ogre::LogManager::getSingletonPtr()->logMessage("Carregant recursos\n");
-}
-
 bool GameSetup::frameRenderingQueued(const Ogre::FrameEvent &evt)
 {
 	mMouse->capture();
@@ -127,4 +114,13 @@ bool GameSetup::mousePressed (const OIS::MouseEvent &arg, OIS::MouseButtonID id)
 bool GameSetup::mouseReleased (const OIS::MouseEvent &arg, OIS::MouseButtonID id)
 {
 	return true;
+}
+
+void GameSetup::createScene(void)
+{
+	Ogre::LogManager::getSingletonPtr()->logMessage("Creant escena");
+}
+void GameSetup::loadResources(void)
+{	
+	Ogre::LogManager::getSingletonPtr()->logMessage("Carregant recursos");
 }

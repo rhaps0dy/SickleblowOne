@@ -10,6 +10,17 @@ class Player
 protected:
 	Ogre::Real mX;
 	Ogre::Real mY;
+	char mirant; //1 dreta, 0 esquerra
+	
+	char animacioCorrent; //una d'un enum d'animacions, definit a les subclasses.
+	char primerFrameAnim;
+	Ogre::Real velAnim; //multiplicador de vel. d'animacio
+	
+	static const Ogre::Real maxHealth;
+	Ogre::Real health;
+	static const Ogre::Real maxUltCD;
+	Ogre::Real ultCD;
+	
 	Interface *mInterface;
 	
 public:

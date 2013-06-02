@@ -31,10 +31,10 @@ void Level::unregisterPlayer(Player *pl)
 
 void Level::update(Ogre::Real dt)
 {
-	std::cerr << "<omg ingas";
-	std::vector<Player*>::iterator i;
-	for(i = mRegPlayers.begin(); i != mRegPlayers.end(); i++)
+	for(register int i = 0; i < mRegPlayers.size(); i++)
 	{
-		(*i)->update(dt);
+		std::cerr<< "no torlbo la segfault;\n";
+		mRegPlayers[i]->update(dt); // hi ha una segfault aqui
+		std::cerr<< "no torlbo la segfault;\n";
 	}
 }

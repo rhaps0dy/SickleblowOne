@@ -4,6 +4,8 @@ GameSetupLocalProva::GameSetupLocalProva(Ogre::Root *root, Ogre::RenderWindow *r
 : mLevelName(lvnm), mPlayerName(plnm), GameSetup(root, rw)
 {
 	Ogre::LogManager::getSingletonPtr()->logMessage("Inicialitzant GameSetupLocalProva");
+	loadResources();
+	createScene();
 	mRoot->startRendering();
 }
 
