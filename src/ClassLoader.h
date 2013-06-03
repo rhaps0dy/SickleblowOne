@@ -26,8 +26,7 @@ class Interface;
 typedef GameSetup *(*GameSetupLocalProva_mk) (Ogre::Root*, Ogre::RenderWindow*, Ogre::String, Ogre::String);
 
 //subclasses de Interface
-typedef Interface *(*KeyboardInterface_mk) (OIS::Keyboard*, std::string);
-#define KEYBOARDINTERFACE_CFG "scripts/kbControls"
+typedef Interface *(*KeyboardInterface_mk) (OIS::Keyboard*);
 
 class ClassLoader
 {
@@ -56,7 +55,7 @@ public:
 	static GameSetup* makeGameSetupLocalProva(Ogre::Root *__root, Ogre::RenderWindow *__rw, Ogre::String __plnm, Ogre::String __lvnm);
 	
 	//subclasses de Interface
-	static Interface* makeKeyboardInterface(OIS::Keyboard *__kb, std::string __cfgfile=KEYBOARDINTERFACE_CFG);
+	static Interface* makeKeyboardInterface(OIS::Keyboard *__kb);
 
 //unloaders
 	//subclasses de GameSetup

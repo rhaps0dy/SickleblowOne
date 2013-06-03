@@ -58,14 +58,14 @@ void ClassLoader::unloadGameSetupLocalProva(void)
 }
 
 //subclasses de Interface
-Interface* ClassLoader::makeKeyboardInterface(OIS::Keyboard *__kb, std::string __cfgfile)
+Interface* ClassLoader::makeKeyboardInterface(OIS::Keyboard *__kb)
 {
 	if(!mKeyboardInterface_lib)
 	{
 		mKeyboardInterface_lib = loadLibrary("interfaces/libKeyboardInterface.so");
 		mKeyboardInterface_mk = reinterpret_cast<KeyboardInterface_mk>(mKeyboardInterface_lib->getSymbol("KeyboardInterface_maker"));
 	}
-	return (*mKeyboardInterface_mk)(__kb, __cfgfile);
+	return (*mKeyboardInterface_mk)(__kb);
 }
 
 void ClassLoader::unloadKeyboardInterface(void)

@@ -4,6 +4,7 @@
 #include "../Interface.h"
 #include <iostream>
 #include <fstream>
+#include <OgreLogManager.h>
 
 // la macro del fitxer de configuracio per defecte esta a ClassLoader.h
 
@@ -30,7 +31,7 @@ private:
 	std::string mCfgFile;
 	
 public:
-	KeyboardInterface(OIS::Keyboard *kb, std::string cfgfile);
+	KeyboardInterface(OIS::Keyboard *kb);
 	~KeyboardInterface(void);
 	
 	bool readConfigFile();

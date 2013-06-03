@@ -1,10 +1,11 @@
 #include "KeyboardInterface.h"
 
-KeyboardInterface::KeyboardInterface(OIS::Keyboard *kb, std::string cfgfile)
-: mKeyboard(kb), mCfgFile(cfgfile)
+KeyboardInterface::KeyboardInterface(OIS::Keyboard *kb)
+: mKeyboard(kb), mCfgFile("configScripts/kbControls")
 {
-	keyMap = static_cast<OIS::KeyCode*> ( new OIS::KeyCode[10] );
+	keyMap =  new OIS::KeyCode[10];
 	readConfigFile();
+	Ogre::LogManager::getSingletonPtr()->logMessage("Creant KeyboardInterface");
 }
 
 KeyboardInterface::~KeyboardInterface(void)
@@ -18,12 +19,6 @@ bool KeyboardInterface::readConfigFile(void)
 	cfg.open(mCfgFile.c_str());
 	if(!cfg.is_open())
 		return false;
-	register int tecla;
-	for(register int i=0; i<10; i++) //10 tecles diferents
-	{
-		cfg >> tecla;
-		keyMap[i] = static_cast<OIS::KeyCode>(tecla);
-	}
 	cfg.close();
 	return true;
 }
@@ -79,8 +74,8 @@ void KeyboardInterface::update(void)
 
 extern "C"
 {
-	KeyboardInterface* KeyboardInterface_maker(OIS::Keyboard *_kb, std::string _cfgfile)
+	KeyboardInterface* KeyboardInterface_maker(OIS::Keyboard *_kb)
 	{
-		return new KeyboardInterface(_kb, _cfgfile);
+		return new KeyboardInterface(_kb);
 	}
 }

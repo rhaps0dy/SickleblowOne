@@ -4,6 +4,7 @@
 #include "Interface.h"
 #include <OgreMath.h>
 #include <OgreVector2.h>
+#include <OgreLogManager.h>
 
 class Player
 {

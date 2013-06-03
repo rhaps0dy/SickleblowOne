@@ -24,7 +24,7 @@ void GameSetupLocalProva::createScene(void)
 	mLevel = new Level();
 	mInterface = ClassLoader::makeKeyboardInterface(mKeyboard);
 	
-	if(mPlayerName == "Sinbad")
+	if(mPlayerName == "pl_Sinbad")
 	{
 		mPlayer = new Player(mInterface);
 	}

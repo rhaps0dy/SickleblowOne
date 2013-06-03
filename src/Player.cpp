@@ -3,6 +3,7 @@
 Player::Player(Interface *iface)
 : mInterface(iface), mX(0.0f), mY(0.0f)
 {
+	Ogre::LogManager::getSingletonPtr()->logMessage("Creant Player");
 }
 
 Player::~Player(void)
