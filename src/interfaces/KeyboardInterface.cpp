@@ -2,10 +2,10 @@
 
 KeyboardInterface::KeyboardInterface(OIS::Keyboard *kb)
 : mKeyboard(kb), mCfgFile("configScripts/kbControls")
-{
+{	
+	Ogre::LogManager::getSingletonPtr()->logMessage("Creant KeyboardInterface");
 	keyMap =  new OIS::KeyCode[10];
 	readConfigFile();
-	Ogre::LogManager::getSingletonPtr()->logMessage("Creant KeyboardInterface");
 }
 
 KeyboardInterface::~KeyboardInterface(void)
@@ -15,12 +15,7 @@ KeyboardInterface::~KeyboardInterface(void)
 
 bool KeyboardInterface::readConfigFile(void)
 {
-	std::ifstream cfg;
-	cfg.open(mCfgFile.c_str());
-	if(!cfg.is_open())
-		return false;
-	cfg.close();
-	return true;
+
 }
 
 void KeyboardInterface::update(void)

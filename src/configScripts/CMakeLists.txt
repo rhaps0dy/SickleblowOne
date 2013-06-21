@@ -1,1 +1,1 @@
-install(FILES kbControls DESTINATION configScripts)
+install(FILES kbControls.ini DESTINATION configScripts)

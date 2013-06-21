@@ -2,9 +2,9 @@
 #define _KeyboardInterface_h_
 
 #include "../Interface.h"
-#include <iostream>
-#include <fstream>
 #include <OgreLogManager.h>
+#include "../iniparser/iniparser.h"
+
 
 // la macro del fitxer de configuracio per defecte esta a ClassLoader.h
 
