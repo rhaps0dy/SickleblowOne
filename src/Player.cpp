@@ -48,5 +48,4 @@ void Player::setPos(const Ogre::Vector2 &pos, bool rel)
 void Player::update(Ogre::Real dt)
 {
 	mInterface->update();
-	std::cerr << mInterface->getStatus() << std::endl;
 }

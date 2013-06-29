@@ -3,7 +3,7 @@
 
 #include "../Interface.h"
 #include <OgreLogManager.h>
-#include "../iniparser/iniparser.h"
+//#include "../iniparser/iniparser.h"
 
 
 // la macro del fitxer de configuracio per defecte esta a ClassLoader.h

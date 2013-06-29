@@ -15,7 +15,20 @@ KeyboardInterface::~KeyboardInterface(void)
 
 bool KeyboardInterface::readConfigFile(void)
 {
-
+	keyMap[ARRPOS_SALT] = OIS::KC_SPACE;
+	keyMap[ARRPOS_ROLL] = OIS::KC_E;
+	keyMap[ARRPOS_AATK] = OIS::KC_Q;
+	keyMap[ARRPOS_SATK] = OIS::KC_W;
+	keyMap[ARRPOS_ULTI] = OIS::KC_R;
+	keyMap[ARRPOS_SHLD] = OIS::KC_LSHIFT;
+	keyMap[ARRPOS_DOWN] = OIS::KC_DOWN;
+	keyMap[ARRPOS_LEFT] = OIS::KC_LEFT;
+	keyMap[ARRPOS_UP] = OIS::KC_UP;
+	keyMap[ARRPOS_RIGHT] = OIS::KC_RIGHT;
+	return true;
+	
+	for(int i=0; i<10; i++)
+		std::cerr << "Tecla num " << keyMap[i] << std::endl;
 }
 
 void KeyboardInterface::update(void)

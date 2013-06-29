@@ -33,7 +33,6 @@ void Level::update(Ogre::Real dt)
 {
 	for(register int i = 0; i < mRegPlayers.size(); i++)
 	{
-		mRegPlayers[i]->update(dt); // hi ha una segfault aqui
-		std::cerr<< "no torlbo la segfault;\n";
+		mRegPlayers[i]->update(dt);
 	}
 }
