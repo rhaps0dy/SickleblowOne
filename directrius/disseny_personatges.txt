@@ -1,0 +1,8 @@
+Límit de polígons: no n'hi ha, però no feu polígons per fer-ne.
+
+Alçada màxima: 3m
+Alçada mínima: alguna cosa amb sentit, no feu un liliputiense de 15cm
+
+Salt mínim: 4.5m (relacionat amb l'alçada de plataformes)
+
+--- Si voleu afegiu regles i aviseu!!
