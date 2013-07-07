@@ -3,6 +3,11 @@
 
 #include "../GameSetup.h"
 
+#define CAM_TURNRATE 0.000047938362584151635
+#define CAM_SPEED 70.0
+
+//game setup que inclou el personatge de prova i el camp de prova
+
 class GameSetupLocalProva : public GameSetup
 {
 private:
@@ -10,10 +15,14 @@ private:
 	Ogre::String mPlayerName;
 	
 	Player *mPlayer;
+	PlayerRenderer *mPlayerRenderer;
 	Level *mLevel;
+	LevelRenderer *mLevelRenderer;
 	Interface *mInterface;
+	CameraMan *mCameraMan;
 	
 	void createScene(void);
+	void loadResources(void);
 	bool frameRenderingQueued(const Ogre::FrameEvent &evt);
 	
 public:

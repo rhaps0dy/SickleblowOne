@@ -20,19 +20,27 @@
 #include <OISException.h>
 
 #include "Player.h"
+#include "PlayerRenderer.h"
 #include "Level.h"
+#include "LevelRenderer.h"
 #include "Interface.h"
 #include "ClassLoader.h"
+#include "CameraMan.h"
+
+//crea i destrueix tots els objectes per a un partit concret.
 
 class GameSetup: public Ogre::FrameListener, public Ogre::WindowEventListener, public OIS::KeyListener, public OIS::MouseListener
 {
 protected:
 	//construccions basiques de Ogre
 	Ogre::Root *mRoot;
-    Ogre::Camera *mCamera;
+	Ogre::Camera *mCamera;
     Ogre::SceneManager *mSceneMgr;
     Ogre::RenderWindow *mWindow;
     
+	//auxiliar de moviment de camera
+	Ogre::SceneNode *mCameraNode;
+
     //construccions basiques de OIS
     OIS::InputManager *mInputManager;
     OIS::Mouse *mMouse;

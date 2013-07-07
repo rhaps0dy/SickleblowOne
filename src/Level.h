@@ -12,7 +12,7 @@ protected:
 	
 public:
 	Level(void);
-	~Level(void);
+	virtual ~Level(void);
 	
 	virtual void registerPlayer(Player *pl);
 	virtual void unregisterPlayer(Player *pl);

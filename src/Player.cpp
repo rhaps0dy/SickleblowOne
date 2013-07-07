@@ -1,7 +1,8 @@
 #include "Player.h"
 
 Player::Player(Interface *iface)
-: mInterface(iface), mX(0.0f), mY(0.0f)
+: mX(0.0f), mY(0.0f), mInterface(iface), mDirection(0), mCurAnim(0),
+velAnim(1.0f), health(maxHealth), ultCD(0.0f)
 {
 	Ogre::LogManager::getSingletonPtr()->logMessage("Creant Player");
 }
@@ -47,5 +48,26 @@ void Player::setPos(const Ogre::Vector2 &pos, bool rel)
 
 void Player::update(Ogre::Real dt)
 {
+char movX = (mInterface->getJoyX() < -Interface::JOY_TH || mInterface->getJoyX() > Interface::JOY_TH);
+char movY = (mInterface->getJoyY() < -Interface::JOY_TH || mInterface->getJoyY() > Interface::JOY_TH); 
+
 	mInterface->update();
+	if(movX)
+	{
+		mCurAnim = 2;
+		setX((Ogre::Real)mInterface->getJoyX()*runSpeed*dt, true);	
+		if(mDirection && mInterface->getJoyX() < -Interface::JOY_TH)
+			mDirection = 0;
+		if(!mDirection && mInterface->getJoyX() > Interface::JOY_TH)
+			mDirection = 1;
+	}
+	else
+	{
+		mCurAnim = 0;
+	}
+
+	if(movY)
+	{
+		setY((Ogre::Real)mInterface->getJoyY()*runSpeed*dt, true);
+	}
 }

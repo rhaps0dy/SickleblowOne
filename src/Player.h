@@ -11,26 +11,29 @@ class Player
 protected:
 	Ogre::Real mX;
 	Ogre::Real mY;
-	char mirant; //1 dreta, 0 esquerra
+	char mDirection; //1 dreta, 0 esquerra
 	
-	char animacioCorrent; //una d'un enum d'animacions, definit a les subclasses.
-	char primerFrameAnim;
+	int mCurAnim; //una d'un enum d'animacions, definit a les subclasses.
 	Ogre::Real velAnim; //multiplicador de vel. d'animacio
 	
-	static const Ogre::Real maxHealth;
+	static constexpr Ogre::Real maxHealth=100.0;
 	Ogre::Real health;
-	static const Ogre::Real maxUltCD;
+	static constexpr Ogre::Real maxUltCD=20.0;
 	Ogre::Real ultCD;
+
+	static constexpr Ogre::Real runSpeed = 2.0f/Interface::MAX_JOY;
 	
 	Interface *mInterface;
 	
 public:
 	Player(Interface *iface);
-	~Player(void);
+	virtual ~Player(void);
 	
 	inline Ogre::Real getX(void) { return mX; }
 	inline Ogre::Real getY(void) { return mY; }
 	inline Ogre::Vector2 getPos(void) { return Ogre::Vector2(mX, mY); }
+	inline char getCurAnim(void) { return mCurAnim; }
+	inline char getDirection(void) { return mDirection; }
 	
 	virtual void setX(const Ogre::Real &x, bool rel=false);
 	virtual void setY(const Ogre::Real &y, bool rel=false);

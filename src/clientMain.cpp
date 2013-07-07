@@ -4,6 +4,7 @@
 #include <OgreRoot.h>
 #include <OgreException.h>
 #include <OgreLogManager.h>
+#include <OgreConfigFile.h>
 
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
@@ -46,7 +47,7 @@ int main(int argc, char **argv)
 		
 		//ara seleccionem un render system d'entre els disponibles
 		const Ogre::RenderSystemList& lRenderSystemList = lRoot->getAvailableRenderers();
-		for(int i=0; i<lRenderSystemList.size(); i++)
+		for(unsigned int i=0; i<lRenderSystemList.size(); i++)
 		{
 			Ogre::String rsysnm = lRenderSystemList[i]->getName();
 			//l'ordre d'ifs es el de preferencia
@@ -71,14 +72,37 @@ int main(int argc, char **argv)
 		lParams["vsync"] = "true";
 		lWindow = lRoot->createRenderWindow("Client for SickleblowOne", 1280, 720, false, &lParams);
 		
-		//TODO: Llistem tots els llocs on hi ha recursos
-		
-		
-		
-		
-		
+
+    // Load resource paths from config file
+		Ogre::ConfigFile cf;
+    cf.load("configScripts/resources.cfg");
+
+    // Go through all sections & settings in the file
+    Ogre::ConfigFile::SectionIterator seci = cf.getSectionIterator();
+
+    Ogre::String secName, typeName, archName;
+    while (seci.hasMoreElements())
+    {
+        secName = seci.peekNextKey();
+        Ogre::ConfigFile::SettingsMultiMap *settings = seci.getNext();
+        Ogre::ConfigFile::SettingsMultiMap::iterator i;
+        for (i = settings->begin(); i != settings->end(); ++i)
+        {
+            typeName = i->first;
+            archName = i->second;
+#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
+            // OS X does not set the working directory relative to the app,
+            // In order to make things portable on OS X we need to provide
+            // the loading with it's own bundle path location
+            if (!Ogre::StringUtil::startsWith(archName, "/", false)) // only adjust relative dirs
+                archName = Ogre::String(Ogre::macBundlePath() + archName);
+#endif
+            Ogre::ResourceGroupManager::getSingleton().addResourceLocation(
+                archName, typeName, secName);
+        }
+    }
 		//Creem un GameSetup --provisional
-		GameSetup *lGameSetup = ClassLoader::makeGameSetupLocalProva(lRoot, lWindow, "pl_Sinbad", "lvl_Prova");
+		GameSetup *lGameSetup = ClassLoader::makeGameSetupLocalProva(lRoot, lWindow, "pl_Boxejador", "lvl_Prova");
 		delete lGameSetup;
 		
 		ClassLoader::unloadGameSetupLocalProva();

@@ -5,9 +5,6 @@
 #include <OISMouse.h>
 #include <OISJoyStick.h>
 
-#define MAX_JOY 0x7f
-#define MIN_JOY -0x8f
-
 class Interface
 {
 protected:
@@ -15,6 +12,8 @@ protected:
 	char prevCtlStatus;
 	int joyX;
 	int joyY;
+	int prevJoyX;
+	int prevJoyY;
 	
 public:
 	static const char SALT = 0x80;
@@ -24,6 +23,10 @@ public:
 	static const char ULTI = 0x08;
 	static const char SHLD = 0x04;
 	
+	static const int MAX_JOY = 0x8000;
+	static const int MIN_JOY = -0x8000; 
+	static const int JOY_TH = 300; //inclinacio del joy a partir de la qual es considera mogut
+
 	inline char getActualCtlStatus(void)
 	{
 		return ctlStatus;
@@ -49,11 +52,23 @@ public:
 	{
 		return joyY;
 	}
-	
+	inline int getPrevJoyX(void)
+	{
+		return prevJoyX;
+	}
+	inline int getPrevJoyY(void)
+	{
+		return prevJoyY;
+	}
+
 	virtual void update(void)
 	{
 		prevCtlStatus = ctlStatus;
+		prevJoyX = joyX;
+		prevJoyY = joyY;
 	}
+	
+	virtual ~Interface(void){;}
 };
 
 #endif //_Interface_h_

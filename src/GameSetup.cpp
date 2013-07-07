@@ -12,13 +12,20 @@ mContinue(true)
     mCamera = mSceneMgr->createCamera("GeneralCamera");
     
     Ogre::Viewport* vp = mWindow->addViewport(mCamera);
-	vp->setBackgroundColour(Ogre::ColourValue(0,0,0));
+	vp->setBackgroundColour(Ogre::ColourValue(1,0,0));
 	
 	mCamera->setAspectRatio(Ogre::Real(vp->getActualWidth()) / Ogre::Real(vp->getActualHeight()));
 	
 	mCamera->setProjectionType(Ogre::PT_PERSPECTIVE);
 	mCamera->setFOVy(Ogre::Degree(40.));
+	mCamera->setNearClipDistance(1.0);
+	mCamera->setFarClipDistance(1000.0);
+	mCameraNode = mSceneMgr->createSceneNode("CameraNode");
+	mCameraNode->attachObject(mCamera);
+	mCameraNode->setPosition(0.0f, 0.0f, 8.0f);
+	mCameraNode->setDirection(0.0, 0.0, -1.0);	
 	
+
 	Ogre::WindowEventUtilities::addWindowEventListener(mWindow, this);
 	mRoot->addFrameListener(this);
 	
@@ -27,7 +34,7 @@ mContinue(true)
     size_t windowHnd;
     mWindow->getCustomAttribute("WINDOW", &windowHnd);
     
-    mInputManager = OIS::InputManager::createInputSystem( windowHnd );
+			mInputManager = OIS::InputManager::createInputSystem( windowHnd );
 
     mKeyboard = static_cast<OIS::Keyboard*>(mInputManager->createInputObject( OIS::OISKeyboard, true ));
     mMouse = static_cast<OIS::Mouse*>(mInputManager->createInputObject( OIS::OISMouse, true ));
