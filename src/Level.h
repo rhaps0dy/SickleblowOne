@@ -3,9 +3,19 @@
 #include <OgreMath.h>
 #include <vector>
 
+#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
+	#ifdef BUILDING_SKBLCORE
+		#define SKBLCORE __declspec(dllexport)
+	#else
+		#define SKBLCORE __declspec(dllimport)
+	#endif
+#else
+	#define SKBLCORE
+#endif
+
 #include "Player.h"
 
-class Level
+class SKBLCORE Level
 {
 protected:
 	std::vector<Player*> mRegPlayers; //llista de jugadors a actualitzar

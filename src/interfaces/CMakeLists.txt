@@ -1,5 +1,6 @@
 add_library(KeyboardInterface SHARED KeyboardInterface.cpp)
+target_compile_definitions(KeyboardInterface PRIVATE -DBUILDING_KEYBOARDINTERFACE)
+target_link_libraries(KeyboardInterface skblcore)
 
-target_link_libraries(KeyboardInterface OIS)
 
 install(TARGETS KeyboardInterface DESTINATION interfaces)

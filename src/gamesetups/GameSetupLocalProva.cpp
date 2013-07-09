@@ -3,7 +3,9 @@
 GameSetupLocalProva::GameSetupLocalProva(Ogre::Root *root, Ogre::RenderWindow *rw, Ogre::String plnm, Ogre::String lvnm)
 : GameSetup(root, rw), mLevelName(lvnm), mPlayerName(plnm) 
 {
-	Ogre::LogManager::getSingletonPtr()->logMessage("Inicialitzant GameSetupLocalProva");
+	#ifndef NO_LOGS
+		Ogre::LogManager::getSingletonPtr()->logMessage("Inicialitzant GameSetupLocalProva");
+	#endif
 	loadResources();
 	createScene();
 	mRoot->startRendering();
@@ -77,10 +79,8 @@ bool GameSetupLocalProva::frameRenderingQueued(const Ogre::FrameEvent &evt)
 
 	return mContinue;
 } 
-extern "C"
+
+GameSetup* GameSetupLocalProva_maker(Ogre::Root *_root, Ogre::RenderWindow *_rw, Ogre::String _plnm, Ogre::String _lvnm)
 {
-	GameSetup* GameSetupLocalProva_maker(Ogre::Root *_root, Ogre::RenderWindow *_rw, Ogre::String _plnm, Ogre::String _lvnm)
-	{
-		return new GameSetupLocalProva(_root, _rw, _plnm, _lvnm);
-	}
+	return new GameSetupLocalProva(_root, _rw, _plnm, _lvnm);
 }

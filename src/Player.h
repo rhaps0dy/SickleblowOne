@@ -1,12 +1,24 @@
 #ifndef _Player_h_
 #define _Player_h_
 
+#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
+	#ifdef BUILDING_SKBLCORE
+		#define SKBLCORE __declspec(dllexport)
+	#else
+		#define SKBLCORE __declspec(dllimport)
+	#endif
+#else
+	#define SKBLCORE
+#endif
+
 #include "Interface.h"
 #include <OgreMath.h>
 #include <OgreVector2.h>
-#include <OgreLogManager.h>
+#ifndef NO_LOGS
+	#include <OgreLogManager.h>
+#endif
 
-class Player
+class SKBLCORE Player
 {
 protected:
 	Ogre::Real mX;

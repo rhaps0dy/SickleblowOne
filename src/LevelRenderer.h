@@ -1,6 +1,16 @@
 #ifndef _LevelRenderer_h_
 #define _LevelRenderer_h_
 
+#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
+	#ifdef BUILDING_SKBLCORE
+		#define SKBLCORE __declspec(dllexport)
+	#else
+		#define SKBLCORE __declspec(dllimport)
+	#endif
+#else
+	#define SKBLCORE
+#endif
+
 #include "Level.h"
 
 #include <OgreRoot.h>
@@ -10,7 +20,7 @@
 #include <OgreEntity.h>
 
 //Classe que dibuixa en la pantalla un nivell
-class LevelRenderer
+class SKBLCORE LevelRenderer
 {
 	protected:
 		Level *mLevel; //nivell que estem representant

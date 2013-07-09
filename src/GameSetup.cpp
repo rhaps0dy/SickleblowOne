@@ -5,7 +5,9 @@ mRoot(root), mWindow(rw), mCamera(0), mSceneMgr(0),
 mInputManager(0), mJoystick(0), mMouse(0), mKeyboard(0),
 mContinue(true)
 {	
-	Ogre::LogManager::getSingletonPtr()->logMessage("Inicialitzant GameSetup");
+	#ifndef NO_LOGS
+		Ogre::LogManager::getSingletonPtr()->logMessage("Inicialitzant GameSetup");
+	#endif
 	
 	//Creem un octree scene manager
     mSceneMgr = mRoot->createSceneManager(Ogre::ST_GENERIC);
@@ -30,7 +32,10 @@ mContinue(true)
 	mRoot->addFrameListener(this);
 	
 	//inicialitzem OIS en aquesta finestra
-	Ogre::LogManager::getSingletonPtr()->logMessage("Inicialitzant OIS...");
+	#ifndef NO_LOGS
+		Ogre::LogManager::getSingletonPtr()->logMessage("Inicialitzant OIS...");
+	#endif
+	
     size_t windowHnd;
     mWindow->getCustomAttribute("WINDOW", &windowHnd);
     
@@ -56,7 +61,9 @@ mContinue(true)
 }
 void GameSetup::destroyAll(void)
 {
-	Ogre::LogManager::getSingletonPtr()->logMessage("Destruint GameSetup");
+	#ifndef NO_LOGS
+		Ogre::LogManager::getSingletonPtr()->logMessage("Destruint GameSetup");
+	#endif
 	Ogre::WindowEventUtilities::removeWindowEventListener(mWindow, this);
 	if(mCamera)
 	{
@@ -125,9 +132,13 @@ bool GameSetup::mouseReleased (const OIS::MouseEvent &arg, OIS::MouseButtonID id
 
 void GameSetup::createScene(void)
 {
-	Ogre::LogManager::getSingletonPtr()->logMessage("Creant escena");
+	#ifndef NO_LOGS
+		Ogre::LogManager::getSingletonPtr()->logMessage("Creant escena");
+	#endif
 }
 void GameSetup::loadResources(void)
 {	
-	Ogre::LogManager::getSingletonPtr()->logMessage("Carregant recursos");
+	#ifndef NO_LOGS
+		Ogre::LogManager::getSingletonPtr()->logMessage("Carregant recursos");
+	#endif
 }

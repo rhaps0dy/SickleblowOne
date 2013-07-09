@@ -1,6 +1,16 @@
 #ifndef _PlayerRenderer_h_
 #define _PlayerRenderer_h_
 
+#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
+	#ifdef BUILDING_SKBLCORE
+		#define SKBLCORE __declspec(dllexport)
+	#else
+		#define SKBLCORE __declspec(dllimport)
+	#endif
+#else
+	#define SKBLCORE
+#endif
+
 #include "Player.h"
 
 #include <OgreRoot.h>
@@ -9,7 +19,7 @@
 #include <OgreCamera.h>
 #include <OgreEntity.h>
 
-class PlayerRenderer
+class SKBLCORE PlayerRenderer
 {
 protected:
 	static const char numAnims = 3;

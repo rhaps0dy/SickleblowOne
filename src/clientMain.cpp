@@ -3,9 +3,10 @@
 
 #include <OgreRoot.h>
 #include <OgreException.h>
-#include <OgreLogManager.h>
 #include <OgreConfigFile.h>
-
+#ifndef NO_LOGS
+	#include <OgreLogManager.h>
+#endif
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
 INT WINAPI WinMain( HINSTANCE hInst, HINSTANCE, LPSTR strCmdLine, INT )
@@ -19,8 +20,11 @@ int main(int argc, char **argv)
 		ClassLoader::init();
 		
 		//Iniciem OGRE
-		Ogre::Root *lRoot = new Ogre::Root("", "", "SickleblowOne.log");
-		
+		#ifdef NO_LOGS
+			Ogre::Root *lRoot = new Ogre::Root("", "", "");
+		#else
+			Ogre::Root *lRoot = new Ogre::Root("", "", "SickleblowOne.log");
+		#endif
 		lRoot->loadPlugin("Plugin_OctreeSceneManager");
 		
 		//provem de carregar els plugins de DirectX o OpenGL
@@ -70,7 +74,7 @@ int main(int argc, char **argv)
 		Ogre::RenderWindow *lWindow;
 		Ogre::NameValuePairList lParams;
 		lParams["vsync"] = "true";
-		lWindow = lRoot->createRenderWindow("Client for SickleblowOne", 1280, 720, false, &lParams);
+		lWindow = lRoot->createRenderWindow("8====D~~~~O:", 1280, 720, false, &lParams);
 		
 
     // Load resource paths from config file
@@ -107,7 +111,9 @@ int main(int argc, char **argv)
 		
 		ClassLoader::unloadGameSetupLocalProva();
 		
-		Ogre::LogManager::getSingletonPtr()->logMessage("Fi del programa");
+		#ifndef NO_LOGS
+			Ogre::LogManager::getSingletonPtr()->logMessage("Fi del programa");
+		#endif
 		delete lRoot;
 	
 	}catch(Ogre::Exception &e)

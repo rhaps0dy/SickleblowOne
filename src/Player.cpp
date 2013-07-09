@@ -4,7 +4,9 @@ Player::Player(Interface *iface)
 : mX(0.0f), mY(0.0f), mInterface(iface), mDirection(0), mCurAnim(0),
 velAnim(1.0f), health(maxHealth), ultCD(0.0f)
 {
-	Ogre::LogManager::getSingletonPtr()->logMessage("Creant Player");
+	#ifndef NO_LOGS
+		Ogre::LogManager::getSingletonPtr()->logMessage("Creant Player");
+	#endif
 }
 
 Player::~Player(void)

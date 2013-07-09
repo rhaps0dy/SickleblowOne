@@ -41,7 +41,11 @@ GameSetup* ClassLoader::makeGameSetupLocalProva(Ogre::Root *__root, Ogre::Render
 {
 	if(!mGameSetupLocalProva_lib)
 	{
+#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
+		mGameSetupLocalProva_lib = loadLibrary("gamesetups/libGameSetupLocalProva.dll");
+#else 
 		mGameSetupLocalProva_lib = loadLibrary("gamesetups/libGameSetupLocalProva.so");
+#endif
 		mGameSetupLocalProva_mk = reinterpret_cast<GameSetupLocalProva_mk>(mGameSetupLocalProva_lib->getSymbol("GameSetupLocalProva_maker"));
 	}
 	return (*mGameSetupLocalProva_mk)(__root, __rw, __plnm, __lvnm);
@@ -62,7 +66,11 @@ Interface* ClassLoader::makeKeyboardInterface(OIS::Keyboard *__kb)
 {
 	if(!mKeyboardInterface_lib)
 	{
+#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
+		mKeyboardInterface_lib = loadLibrary("interfaces/libKeyboardInterface.dll");
+#else
 		mKeyboardInterface_lib = loadLibrary("interfaces/libKeyboardInterface.so");
+#endif
 		mKeyboardInterface_mk = reinterpret_cast<KeyboardInterface_mk>(mKeyboardInterface_lib->getSymbol("KeyboardInterface_maker"));
 	}
 	return (*mKeyboardInterface_mk)(__kb);

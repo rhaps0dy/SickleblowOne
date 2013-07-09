@@ -2,13 +2,24 @@
 #define _KeyboardInterface_h_
 
 #include "../Interface.h"
-#include <OgreLogManager.h>
+#ifndef NO_LOGS
+	#include <OgreLogManager.h>
+#endif
 //#include "../iniparser/iniparser.h"
 
 
+#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
+	#ifdef BUILDING_KEYBOARDINTERFACE
+		#define KEYBOARDINTERFACE __declspec(dllexport)
+	#else
+		#define KEYBOARDINTERFACE __declspec(dllimport)
+	#endif
+#else
+	#define KEYBOARDINTERFACE
+#endif
 // la macro del fitxer de configuracio per defecte esta a ClassLoader.h
 
-class KeyboardInterface : public Interface
+class KEYBOARDINTERFACE KeyboardInterface : public Interface
 {
 private:
 	OIS::Keyboard *mKeyboard;
@@ -38,4 +49,9 @@ public:
 	
 	void update(void);
 };
+
+extern "C"
+{
+	KeyboardInterface* KEYBOARDINTERFACE KeyboardInterface_maker(OIS::Keyboard *_kb);
+}
 #endif //_KeyboardInterface_h_

@@ -1,11 +1,21 @@
 #ifndef _Interface_h_
 #define _Interface_h_
 
+#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
+	#ifdef BUILDING_SKBLCORE
+		#define SKBLCORE __declspec(dllexport)
+	#else
+		#define SKBLCORE __declspec(dllimport)
+	#endif
+#else
+	#define SKBLCORE
+#endif
+
 #include <OISKeyboard.h>
 #include <OISMouse.h>
 #include <OISJoyStick.h>
 
-class Interface
+class SKBLCORE Interface
 {
 protected:
 	char ctlStatus;

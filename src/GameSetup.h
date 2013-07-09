@@ -1,13 +1,24 @@
 #ifndef _GameSetup_h_
 #define _GameSetup_h_
 
+#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
+	#ifdef BUILDING_SKBLCORE
+		#define SKBLCORE __declspec(dllexport)
+	#else
+		#define SKBLCORE __declspec(dllimport)
+	#endif
+#else
+	#define SKBLCORE
+#endif
+
 //renderitzacio
 #include <OgreRoot.h>
 #include <OgreSceneManager.h>
 #include <OgreRenderWindow.h>
 #include <OgreCamera.h>
-#include <OgreLogManager.h>
-
+#ifndef NO_LOGS
+	#include <OgreLogManager.h>
+#endif
 #include <OgreMath.h>
 
 //events
@@ -29,7 +40,7 @@
 
 //crea i destrueix tots els objectes per a un partit concret.
 
-class GameSetup: public Ogre::FrameListener, public Ogre::WindowEventListener, public OIS::KeyListener, public OIS::MouseListener
+class SKBLCORE GameSetup: public Ogre::FrameListener, public Ogre::WindowEventListener, public OIS::KeyListener, public OIS::MouseListener
 {
 protected:
 	//construccions basiques de Ogre

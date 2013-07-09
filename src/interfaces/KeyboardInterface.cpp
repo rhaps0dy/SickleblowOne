@@ -3,7 +3,9 @@
 KeyboardInterface::KeyboardInterface(OIS::Keyboard *kb)
 : mKeyboard(kb), mCfgFile("configScripts/kbControls")
 {	
-	Ogre::LogManager::getSingletonPtr()->logMessage("Creant KeyboardInterface");
+	#ifndef NO_LOGS
+		Ogre::LogManager::getSingletonPtr()->logMessage("Creant KeyboardInterface");
+	#endif
 	keyMap =  new OIS::KeyCode[10];
 	readConfigFile();
 }
@@ -27,10 +29,12 @@ bool KeyboardInterface::readConfigFile(void)
 	keyMap[ARRPOS_RIGHT] = OIS::KC_RIGHT;
 	return true;
 	
-	for(int i=0; i<10; i++)
-		std::cerr << "Tecla num " << keyMap[i] << std::endl;
+	#ifndef NO_LOGS
+		for(int i=0; i<10; i++)
+			std::cerr << "Tecla num " << keyMap[i] << std::endl;
+	#endif
 }
-
+	
 void KeyboardInterface::update(void)
 {
 	Interface::update();
@@ -80,10 +84,8 @@ void KeyboardInterface::update(void)
 		joyX = 0;
 }
 
-extern "C"
+KeyboardInterface* KeyboardInterface_maker(OIS::Keyboard *_kb)
 {
-	KeyboardInterface* KeyboardInterface_maker(OIS::Keyboard *_kb)
-	{
-		return new KeyboardInterface(_kb);
-	}
+	return new KeyboardInterface(_kb);
 }
+

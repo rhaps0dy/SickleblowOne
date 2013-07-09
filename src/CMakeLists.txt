@@ -1,10 +1,21 @@
-add_subdirectory(interfaces)
 add_subdirectory(gamesetups)
+add_subdirectory(interfaces)
 add_subdirectory(configScripts)
 
 #Interface.cpp no existeix, es nomes un .h!
-add_executable(skbl ClassLoader.cpp GameSetup.cpp Player.cpp Level.cpp LevelRenderer.cpp PlayerRenderer.cpp CameraMan.cpp clientMain.cpp)
+add_library(skblcore SHARED ClassLoader.cpp GameSetup.cpp Player.cpp Level.cpp LevelRenderer.cpp PlayerRenderer.cpp CameraMan.cpp)
+target_compile_definitions(skblcore PRIVATE -DBUILDING_SKBLCORE)
 
-target_link_libraries(skbl OgreMain OIS dl boost_system)
+add_executable(skbl clientMain.cpp)
 
-install(TARGETS skbl DESTINATION .)
+if(UNIX)
+target_link_libraries(skblcore OgreMain OIS dl ${BOOST_SYSTEM})
+target_link_libraries(skbl skblcore OgreMain OIS ${BOOST_SYSTEM})
+endif(UNIX)
+if(WIN32)
+target_link_libraries(skblcore OgreMain OIS ${BOOST_SYSTEM})
+target_link_libraries(skbl skblcore OgreMain OIS ${BOOST_SYSTEM})
+set_target_properties(skbl PROPERTIES LINK_FLAGS -Wl,--subsystem,windows)
+endif(WIN32)
+
+install(TARGETS skbl skblcore DESTINATION .)

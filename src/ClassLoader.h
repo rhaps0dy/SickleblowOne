@@ -1,6 +1,16 @@
 #ifndef _ClassLoader_h_
 #define _ClassLoader_h_
 
+#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
+	#ifdef BUILDING_SKBLCORE
+		#define SKBLCORE __declspec(dllexport)
+	#else
+		#define SKBLCORE __declspec(dllimport)
+	#endif
+#else
+	#define SKBLCORE
+#endif
+
 #include <OISKeyboard.h>
 #include <OISMouse.h>
 #include <OISJoyStick.h>
@@ -28,7 +38,7 @@ typedef GameSetup *(*GameSetupLocalProva_mk) (Ogre::Root*, Ogre::RenderWindow*, 
 //subclasses de Interface
 typedef Interface *(*KeyboardInterface_mk) (OIS::Keyboard*);
 
-class ClassLoader
+class SKBLCORE ClassLoader
 {
 private:
 	static Ogre::DynLib* loadLibrary(std::string lib_name);
