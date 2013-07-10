@@ -1,21 +1,23 @@
 #ifndef _Player_h_
 #define _Player_h_
 
-#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
-	#ifdef BUILDING_SKBLCORE
-		#define SKBLCORE __declspec(dllexport)
-	#else
-		#define SKBLCORE __declspec(dllimport)
-	#endif
-#else
-	#define SKBLCORE
-#endif
-
 #include "Interface.h"
 #include <OgreMath.h>
 #include <OgreVector2.h>
 #ifndef NO_LOGS
 	#include <OgreLogManager.h>
+#endif
+
+#ifndef SKBLCORE
+	#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
+		#ifdef BUILDING_SKBLCORE
+			#define SKBLCORE __declspec(dllexport)
+		#else
+			#define SKBLCORE __declspec(dllimport)
+		#endif
+	#else
+		#define SKBLCORE
+	#endif
 #endif
 
 class SKBLCORE Player

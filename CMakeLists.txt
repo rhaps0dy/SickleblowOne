@@ -10,7 +10,7 @@ include_directories(/usr/local/include)
 include_directories(/usr/local/include/OGRE)
 include_directories(/usr/include/OIS)
 include_directories(/usr/include/CEGUI)
-add_definitions(-O0 -g -std=c++11)
+add_definitions(-O3 -g -std=c++11)
 
 set(BOOST_SYSTEM boost_system)
 endif(UNIX)

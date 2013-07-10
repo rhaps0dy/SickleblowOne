@@ -3,17 +3,19 @@
 #include <OgreMath.h>
 #include <vector>
 
-#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
-	#ifdef BUILDING_SKBLCORE
-		#define SKBLCORE __declspec(dllexport)
-	#else
-		#define SKBLCORE __declspec(dllimport)
-	#endif
-#else
-	#define SKBLCORE
-#endif
-
 #include "Player.h"
+
+#ifndef SKBLCORE
+	#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
+		#ifdef BUILDING_SKBLCORE
+			#define SKBLCORE __declspec(dllexport)
+		#else
+			#define SKBLCORE __declspec(dllimport)
+		#endif
+	#else
+		#define SKBLCORE
+	#endif
+#endif
 
 class SKBLCORE Level
 {

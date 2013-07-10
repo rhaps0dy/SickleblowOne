@@ -1,16 +1,6 @@
 #ifndef _GameSetup_h_
 #define _GameSetup_h_
 
-#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
-	#ifdef BUILDING_SKBLCORE
-		#define SKBLCORE __declspec(dllexport)
-	#else
-		#define SKBLCORE __declspec(dllimport)
-	#endif
-#else
-	#define SKBLCORE
-#endif
-
 //renderitzacio
 #include <OgreRoot.h>
 #include <OgreSceneManager.h>
@@ -37,6 +27,18 @@
 #include "Interface.h"
 #include "ClassLoader.h"
 #include "CameraMan.h"
+
+#ifndef SKBLCORE
+	#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
+		#ifdef BUILDING_SKBLCORE
+			#define SKBLCORE __declspec(dllexport)
+		#else
+			#define SKBLCORE __declspec(dllimport)
+		#endif
+	#else
+		#define SKBLCORE
+	#endif
+#endif
 
 //crea i destrueix tots els objectes per a un partit concret.
 

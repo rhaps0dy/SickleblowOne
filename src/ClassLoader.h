@@ -1,16 +1,6 @@
 #ifndef _ClassLoader_h_
 #define _ClassLoader_h_
 
-#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
-	#ifdef BUILDING_SKBLCORE
-		#define SKBLCORE __declspec(dllexport)
-	#else
-		#define SKBLCORE __declspec(dllimport)
-	#endif
-#else
-	#define SKBLCORE
-#endif
-
 #include <OISKeyboard.h>
 #include <OISMouse.h>
 #include <OISJoyStick.h>
@@ -22,6 +12,18 @@
 //no volem referencies circulars
 class GameSetup;
 class Interface;
+
+#ifndef SKBLCORE
+	#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
+		#ifdef BUILDING_SKBLCORE
+			#define SKBLCORE __declspec(dllexport)
+		#else
+			#define SKBLCORE __declspec(dllimport)
+		#endif
+	#else
+		#define SKBLCORE
+	#endif
+#endif
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
 #include <macUtils.h>

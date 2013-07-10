@@ -34,6 +34,7 @@ Ogre::DynLib* ClassLoader::loadLibrary(std::string lib_name)
 #else
 		Ogre::DynLib *dlib = Ogre::DynLibManager::getSingleton().load(lib_name);
 #endif 
+	return dlib;
 }
 
 //subclasses de GameSetup
@@ -46,7 +47,7 @@ GameSetup* ClassLoader::makeGameSetupLocalProva(Ogre::Root *__root, Ogre::Render
 #else 
 		mGameSetupLocalProva_lib = loadLibrary("gamesetups/libGameSetupLocalProva.so");
 #endif
-		mGameSetupLocalProva_mk = reinterpret_cast<GameSetupLocalProva_mk>(mGameSetupLocalProva_lib->getSymbol("GameSetupLocalProva_maker"));
+	mGameSetupLocalProva_mk = reinterpret_cast<GameSetupLocalProva_mk>(mGameSetupLocalProva_lib->getSymbol("GameSetupLocalProva_maker"));
 	}
 	return (*mGameSetupLocalProva_mk)(__root, __rw, __plnm, __lvnm);
 }
