@@ -127,6 +127,10 @@ Cada subclasse té la seva llibreria compartida pròpia.
 \end{itemize}
 \end{itemize}
 
+\textit{ClassLoader:} s'ocupa de carregar llibreries dinàmiques on es troben cada una de les subclasses de jugadors i nivells, dinàmicament.
+
+\textit{CameraMan:} es dedica a moure la càmera seguint a un jugador que se li indica
+
 \textit{NetworkManager:} s'ocupa de la comunicació via UDP i TCP/IP amb altres \textit{NetworkManager}.\\ (TODO: EXTENDRE)
 
 \textit{GUILauncher:} S'ocupa de la GUI que s'inicia quan s'inicia el joc. Segons les opcions seleccionades, configura els gràfics,  updateja el client al principi, fer login quan selecciones jugar en xarxa, configura el so, els controls, ensenya les taules de puntuacions... Bàsicament conté tota la GUI que no està dins de la partida. Quan es selecciona l'opció carrega recursos, inicia el GameSetup corresponent i li passa control.\\
