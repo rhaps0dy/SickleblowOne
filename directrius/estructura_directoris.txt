@@ -1,0 +1,18 @@
+SickleblowOne: aqui dins esta tot el joc
++--media: Models, textures, animacions, sons
+|  +--characters
+|  |  +--NomDelPersonatge: aqui van tots els fitxers del personatge; models, textures, animacions, crits/sons del personatge, fitxers de col.lisio, etc.
+|  +--levels
+|  |  +--NomDelNivell: aqui van tots els fitxers del nivell: models, textures, animacions si s'escau, fitxers de col.lisio, etc.
+|  +--orbs
+|  |  +--CaracteristiquesTipusOrb: textures, caracteristiques, efectes especifics del tipus de l'orb.
+|  +--gui: imatges dels menus
+|  +--hud: imatges de la HUD
+|  +--sfx: efectes de so no especifics de cap personatge, nivell o orb. Pot ser que els orbs semblants tinguin els fitxers d'efecte aqui
+|  +--models: altres models, com barrils, caixes, objectes generals, el que sigui
+|  +--music
+|  +--es poden afegir altres directoris si cal
++--configScripts: configuracio del teclat, dels grafics, del so, etc.
++--gamesetups, interfaces, pplayers, nplayers, plevels, nlevels, levelrenderers, playerrenderers, etc. Contenen llibreries de codi referents al que indica el nom del directori
+
+L'estructura de directoris es susceptible de canvis, pero segurament seran nomes addicions, sense treure cap dels directoris que ja hi ha

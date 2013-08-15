@@ -21,8 +21,10 @@
 #include <OISException.h>
 
 #include "Player.h"
+#include "PPlayer.h"
 #include "PlayerRenderer.h"
 #include "Level.h"
+#include "PLevel.h"
 #include "LevelRenderer.h"
 #include "Interface.h"
 #include "ClassLoader.h"

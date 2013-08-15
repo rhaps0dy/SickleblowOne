@@ -29,12 +29,12 @@ void GameSetupLocalProva::createScene(void)
 	Ogre::Light* light = mSceneMgr->createLight("MainLight");
     	light->setPosition(20.0f, 80.0f, 50.0f);
 	
-	mLevel = new Level();
+	mLevel = new PLevel();
 	mInterface = ClassLoader::makeKeyboardInterface(mKeyboard);
 	
 	if(mPlayerName == "pl_Boxejador")
 	{
-		mPlayer = new Player(mInterface);
+		mPlayer = new PPlayer(mInterface);
 	}
 	 
 	mLevel->registerPlayer(mPlayer);

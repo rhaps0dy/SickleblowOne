@@ -8,7 +8,7 @@
 		#define GAMESETUPLOCALPROVA __declspec(dllexport)
 	#else
 		#define GAMESETUPLOCALPROVA __declspec(dllimport)
-	#endif
+	#endif 
 #else
 	#define GAMESETUPLOCALPROVA
 #endif
@@ -24,9 +24,9 @@ private:
 	Ogre::String mLevelName;
 	Ogre::String mPlayerName;
 	
-	Player *mPlayer;
+	PPlayer *mPlayer;
 	PlayerRenderer *mPlayerRenderer;
-	Level *mLevel;
+	PLevel *mLevel;
 	LevelRenderer *mLevelRenderer;
 	Interface *mInterface;
 	CameraMan *mCameraMan;
