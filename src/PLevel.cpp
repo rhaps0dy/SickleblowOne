@@ -1,79 +1,98 @@
 #include "PLevel.h"
 
 PLevel::PLevel(void)
-: mRegPlayers(0), space(0), accdt(0.0f)
+: mRegPlayers(0), mSpace(0), accDt(0.0f)
 {
-	space = cpSpaceNew();
-	space->iterations = 10;
-	space->gravity = cpv(0, GRAVITY);
+	mSpace = cpSpaceNew();
+	mSpace->iterations = 10;
+	mSpace->gravity = cpv(0, GRAVITY*100.);
 
 	FILE *lvcfile = fopen("media/levels/TempleSelva/TempleSelva.lvc", "r");
 	float x1, y1, x2, y2;
+	cpShape *shape;
 	do
 	{
 		fscanf(lvcfile, "%f", &x1);
 		fscanf(lvcfile, "%f", &y1);
 		fscanf(lvcfile, "%f", &x2);
 		fscanf(lvcfile, "%f", &y2);
-		shape = cpSpaceAddShape(space, cpSegmentShapeNew(staticBody, cpv(x1,y1), cpv(x2,y2), 0.0f));
-		shape->e = 1.0f; shape->u = 1.0f;
-		shape->layers = NOT_GRABABLE_MASK;
+		shape = cpSpaceAddShape(mSpace, cpSegmentShapeNew(mSpace->staticBody, cpv(x1*100,y1*100), cpv(x2*100,y2*100), 0.0f));
+		shape->e = 1.0f;
+		shape->u = 10.0f;
 	}while(!feof(lvcfile));
 	fclose(lvcfile);
 }
 
 PLevel::~PLevel(void)
 {
-	cpSpaceEachShape(space, (cpSpaceShapeIteratorFunc)selfShapeFree, space);
-	cpSpaceEachConstraint(space, (cpSpaceConstraintIteratorFunc)selfConstraintFree, space);
-	cpSpaceEachBody(space, (cpSpaceBodyIteratorFunc)selfBodyFree, space);
-	cpSpaceFree(space);
-	Level::~Level();
+	std::cerr << "anem a fer shapes" << std::endl;
+	cpSpaceEachShape(mSpace, (cpSpaceShapeIteratorFunc)postShapeFree, mSpace);
+	std::cerr << "anem a fer constraints" << std::endl;
+	cpSpaceEachConstraint(mSpace, (cpSpaceConstraintIteratorFunc)postConstraintFree, mSpace);
+	std::cerr << "anem a fer bodies" << std::endl;
+	cpSpaceEachBody(mSpace, (cpSpaceBodyIteratorFunc)postBodyFree, mSpace);
+	std::cerr << "anem a fer spacefree" << std::endl;
+	cpSpaceFree(mSpace);
+	std::cerr << "fi" << std::endl;
 }
 
 void PLevel::registerPlayer(PPlayer *pl)
 {
 	Level::registerPlayer(pl);
-	cpSpaceAddBody(space, pl->getBody);
-	for(int i=0; i<pl->getNumShapes(); i++)
+	cpSpaceAddBody(mSpace, pl->getBody());
+	for(int i=0; i<PPlayer::numShapes; i++)
 	{
-		cpSpaceAddShape(space, pl->getShape(i));
+		cpSpaceAddShape(mSpace, pl->getShape(i));
 	}
 }
 
 void PLevel::unregisterPlayer(PPlayer *pl)
 {
-	cpSpaceRemoveBody(space, pl->getBody);
-	for(int i=0; i<pl->getNumShapes(); i++)
+	cpSpaceRemoveBody(mSpace, pl->getBody());
+	for(int i=0; i<PPlayer::numShapes; i++)
 	{
-		cpSpaceRemoveShape(space, pl->getShape(i));
+		cpSpaceRemoveShape(mSpace, pl->getShape(i));
 	}
 	Level::unregisterPlayer(pl);
 }
 
 void PLevel::update(Ogre::Real dt)
 {
-	Level::update(Ogre::Real dt);
+	Level::update(dt);
 	accDt += dt;
 	while(accDt >= DTCHUNKSIZE)
 	{
 		accDt -= DTCHUNKSIZE;
-		cpSpaceStep(space, DTCHUNKSIZE);
+		cpSpaceStep(mSpace, DTCHUNKSIZE);
 	}
 }
 		
-void PLevel::selfBodyFree(cpBody *body)
+void PLevel::bodyFreeWrap(cpSpace *space, cpBody *body, void *unused)
 {
 	cpSpaceRemoveBody(space, body);
 	cpBodyFree(body);
 }
-void PLevel::selfShapeFree(cpShape *shape)
+
+void PLevel::shapeFreeWrap(cpSpace *space, cpShape *shape, void *unused)
 {
 	cpSpaceRemoveShape(space, shape);
 	cpShapeFree(shape);
 }
-void PLevel::selfConstraintFree(cpConstraint *constraint)
+
+void PLevel::constraintFreeWrap(cpSpace *space, cpConstraint *constraint, void *unused)
 {
 	cpSpaceRemoveConstraint(space, constraint);
 	cpConstraintFree(constraint);
+}
+void PLevel::postBodyFree(cpBody *body, cpSpace *space)
+{
+	cpSpaceAddPostStepCallback(space, (cpPostStepFunc)bodyFreeWrap, body, NULL);
+}
+void PLevel::postConstraintFree(cpConstraint *constraint, cpSpace *space)
+{
+	cpSpaceAddPostStepCallback(space, (cpPostStepFunc)constraintFreeWrap, constraint, NULL);
+}
+void PLevel::postShapeFree(cpShape *shape, cpSpace *space)
+{
+	cpSpaceAddPostStepCallback(space, (cpPostStepFunc)shapeFreeWrap, shape, NULL);
 }

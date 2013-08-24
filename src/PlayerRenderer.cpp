@@ -46,7 +46,7 @@ void PlayerRenderer::update(Ogre::Real dt)
 		mPlayerNode->setDirection(1.0f, 0.0f, 0.0f, Ogre::SceneNode::TS_WORLD);
 	}
 
-	std::cerr << mAnimPlaying << std::endl;
+	//std::cerr << mAnimPlaying << std::endl;
 	//animacions
 	if(mAnimPlaying != mPlayer->getCurAnim())
 	{

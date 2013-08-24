@@ -14,10 +14,11 @@ GameSetupLocalProva::GameSetupLocalProva(Ogre::Root *root, Ogre::RenderWindow *r
 GameSetupLocalProva::~GameSetupLocalProva(void)
 {
 	delete mPlayer;
+	mLevel->unregisterPlayer(mPlayer);
 	delete mLevel;
 	delete mLevelRenderer;
 	delete mPlayerRenderer;
-	GameSetup::destroyAll();
+	//GameSetup::destroyAll();
 	ClassLoader::unloadKeyboardInterface();
 }
 
@@ -54,12 +55,17 @@ void GameSetupLocalProva::loadResources(void)
 bool GameSetupLocalProva::frameRenderingQueued(const Ogre::FrameEvent &evt)
 {
 	mContinue = GameSetup::frameRenderingQueued(evt);
-	mLevel->update(evt.timeSinceLastFrame);
-	mLevelRenderer->update();
 	mPlayer->update(evt.timeSinceLastFrame);
 	mPlayerRenderer->update(evt.timeSinceLastFrame);
+	mLevel->update(evt.timeSinceLastFrame);
+	mLevelRenderer->update();
 	mCameraMan->update();
-
+/*	while(!(mInterface->getActualCtlStatus() & Interface::ROLL))
+	{
+		GameSetup::frameRenderingQueued(evt);
+		mInterface->update();
+	}
+*/
 	/*mCameraNode->yaw(Ogre::Radian(mInterface->getJoyX()*CAM_TURNRATE*evt.timeSinceLastFrame));
 	mCameraNode->pitch(Ogre::Radian(mInterface->getJoyY()*CAM_TURNRATE*evt.timeSinceLastFrame)); 
 	char estat = mInterface->getActualCtlStatus();

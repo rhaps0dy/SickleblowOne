@@ -24,9 +24,7 @@
 class SKBLCORE PlayerRenderer
 {
 protected:
-	static const char numAnims = 3;
 	char mAnimPlaying;
-	Ogre::String mAnimacions[numAnims];
 	Ogre::AnimationState *mAnimState;
 	char mPrevDirection;
 
@@ -40,6 +38,9 @@ public:
 	PlayerRenderer(Player *pl, Ogre::SceneManager *mgr, Ogre::SceneNode *terra);
 	virtual ~PlayerRenderer(void);
 	virtual void update(Ogre::Real dt);
+
+	static const char numAnims = 3;
+	Ogre::String mAnimacions[numAnims];
 
 inline Ogre::SceneNode* getPlayerNode(void) { return mPlayerNode; }
 };

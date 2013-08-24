@@ -4,13 +4,13 @@ LevelRenderer::LevelRenderer(Level *lv, Ogre::Root *root, Ogre::Camera *cam, Ogr
 mLevel(lv), mRoot(root), mCamera(cam), mSceneMgr(mgr),
 mLevelEnt(0), mLevelNode(0)
 {
-	mLevelEnt = mSceneMgr->createEntity("CProves", "Cube.mesh");
+	mLevelEnt = mSceneMgr->createEntity("CProves", "Temple.mesh");
 	mLevelNode = mSceneMgr->getRootSceneNode()->createChildSceneNode("CProvesNode", Ogre::Vector3(0.0f, 0.0f, 0.0f));
 	mLevelNode->attachObject(mLevelEnt);
-	mLevelNode->setScale(1.0f, 1.0f, 1.0f);
-	mLevelNode->setDirection(-1.0f, 0.0f, 0.0f);
+	mLevelNode->setScale(.1f, .1f, .1f);
+	//mLevelNode->setDirection(-1.0f, 0.0f, 0.0f);
 
-	mTerra =  mSceneMgr->getRootSceneNode()->createChildSceneNode("TerraNode", Ogre::Vector3(0.0f, 2.402f, 0.0f));
+	mTerra =  mSceneMgr->getRootSceneNode()->createChildSceneNode("TerraNode", Ogre::Vector3(0.0f, 0.0f, 0.0f));
 }
 
 LevelRenderer::~LevelRenderer(void)

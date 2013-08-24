@@ -35,8 +35,6 @@ protected:
 	static constexpr Ogre::Real maxUltCD=20.0;
 	Ogre::Real ultCD;
 
-	static constexpr Ogre::Real runSpeed = 2.0f/Interface::MAX_JOY;
-	
 	Interface *mInterface;
 	
 public:
@@ -54,6 +52,9 @@ public:
 	virtual void setPos(const Ogre::Vector2 &pos, bool rel=false);
 	
 	virtual void update(Ogre::Real dt);
+
+	static constexpr Ogre::Real RUN_SPEED= 400.0f;
+	
 };
 
 #endif //_Player_h_

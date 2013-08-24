@@ -74,7 +74,7 @@ int main(int argc, char **argv)
 		Ogre::RenderWindow *lWindow;
 		Ogre::NameValuePairList lParams;
 		lParams["vsync"] = "true";
-		lWindow = lRoot->createRenderWindow("8====D~~~~O:", 1280, 720, false, &lParams);
+		lWindow = lRoot->createRenderWindow("Nyoro ~n", 1280, 720, false, &lParams);
 		
 
     // Load resource paths from config file

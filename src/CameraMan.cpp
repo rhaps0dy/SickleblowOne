@@ -3,6 +3,7 @@
 CameraMan::CameraMan(Ogre::SceneNode *pl, Ogre::SceneNode *cam) :
 mPlayerNode(pl), mCamNode(cam)
 {
+	mCamNode->setPosition(mCamNode->getPosition()+Ogre::Vector3(0, 0, 10));
 }
 
 CameraMan::~CameraMan(void)

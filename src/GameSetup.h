@@ -86,7 +86,7 @@ public:
 	GameSetup(Ogre::Root *root, Ogre::RenderWindow *rw);
 	//potencial per afegir un altre constructor amb els objectes de OIS ja creats
 
-	~GameSetup(void) { destroyAll(); }
+	virtual ~GameSetup(void) { destroyAll(); }
 };
 
 #endif //_GameSetup_h_

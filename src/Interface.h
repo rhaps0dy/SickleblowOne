@@ -59,10 +59,12 @@ public:
 	
 	inline int getJoyX(void)
 	{
+		if(joyX > -JOY_TH && joyX < JOY_TH) return 0;
 		return joyX;
 	}
 	inline int getJoyY(void)
 	{
+		if(joyY > -JOY_TH && joyY < JOY_TH) return 0;
 		return joyY;
 	}
 	inline int getPrevJoyX(void)
@@ -77,8 +79,8 @@ public:
 	virtual void update(void)
 	{
 		prevCtlStatus = ctlStatus;
-		prevJoyX = joyX;
-		prevJoyY = joyY;
+		prevJoyX = getJoyX();
+		prevJoyY = getJoyY();
 	}
 	
 	virtual ~Interface(void){;}
