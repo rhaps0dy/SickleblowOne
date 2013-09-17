@@ -25,6 +25,8 @@ protected:
 	std::vector<PPlayer*> mRegPlayers; //llista de jugadors a actualitzar
 	cpSpace *mSpace;
 	cpFloat accDt;
+	int mNumSegments;
+	cpShape **mSegments;
 	static constexpr cpFloat DTCHUNKSIZE = 0.0055555555555555555556f; // 1/(60*3)
 	
 public:
