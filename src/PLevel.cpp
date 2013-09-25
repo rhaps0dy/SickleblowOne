@@ -5,7 +5,7 @@ PLevel::PLevel(void)
 {
 	mSpace = cpSpaceNew();
 	mSpace->iterations = 10;
-	mSpace->gravity = cpv(0, GRAVITY*100.);
+	mSpace->gravity = cpv(0, GRAVITY);
 
 	FILE *lvcfile = fopen("media/levels/TempleSelva/TempleSelva.lvc", "r");
 	float x1, y1, x2, y2;

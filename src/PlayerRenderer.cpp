@@ -10,8 +10,9 @@ mSceneMgr(mgr), mPlayerEnt(0), mPlayerNode(0), mTerra(terra)
 	mPlayerEnt = mSceneMgr->createEntity("Boxejador", "Boxejador.mesh");
 	mPlayerNode = mTerra->createChildSceneNode("Boxejador", Ogre::Vector3(0.0f, 0.0f, 0.0f));
 	mPlayerNode->attachObject(mPlayerEnt);
-	mPlayerNode->setDirection(0.0f, 0.0f, 1.0f);
-	mPlayerNode->setScale(.15f, .15f, .15f);
+	//escalem el terra per a les proporcions de la simulacio fisica
+	mTerra->setScale(.01f, .01f, .01f);
+	mPlayerNode->setScale(15.f, 15.f, 15.f);
 
 	//inicialitzem totes les animacions a loop
 	for(char i=0; i<numAnims; i++)
@@ -22,6 +23,8 @@ mSceneMgr(mgr), mPlayerEnt(0), mPlayerNode(0), mTerra(terra)
 
 	//assegurem-nos que mAnimPlaying != mPlayer->getCurAnim()
 	mAnimPlaying = mPlayer->getCurAnim() + 1;
+	//assegurem-nos que mPrevDirectiono != mPlayer->getDirection()
+	mPrevDirection = !mPlayer->getDirection();
 	update(0.0f);
 }
 

@@ -60,28 +60,6 @@ bool GameSetupLocalProva::frameRenderingQueued(const Ogre::FrameEvent &evt)
 	mLevel->update(evt.timeSinceLastFrame);
 	mLevelRenderer->update();
 	mCameraMan->update();
-/*	while(!(mInterface->getActualCtlStatus() & Interface::ROLL))
-	{
-		GameSetup::frameRenderingQueued(evt);
-		mInterface->update();
-	}
-*/
-	/*mCameraNode->yaw(Ogre::Radian(mInterface->getJoyX()*CAM_TURNRATE*evt.timeSinceLastFrame));
-	mCameraNode->pitch(Ogre::Radian(mInterface->getJoyY()*CAM_TURNRATE*evt.timeSinceLastFrame)); 
-	char estat = mInterface->getActualCtlStatus();
-	Ogre::Real moviment = evt.timeSinceLastFrame * CAM_SPEED;
-	if(estat & Interface::SALT)
-		mCameraNode->translate(0.0, 0.0, -CAM_SPEED*evt.timeSinceLastFrame, Ogre::Node::TS_LOCAL);	
-	if(estat & Interface::SHLD)
-		mCameraNode->translate(0.0, 0.0, CAM_SPEED*evt.timeSinceLastFrame, Ogre::Node::TS_LOCAL);	
-	if(estat & Interface::AATK)
-		mCameraNode->translate(-CAM_SPEED*evt.timeSinceLastFrame, 0.0, 0.0, Ogre::Node::TS_LOCAL);	
-	if(estat & Interface::SATK)
-		mCameraNode->translate(CAM_SPEED*evt.timeSinceLastFrame, 0.0, 0.0, Ogre::Node::TS_LOCAL);	
-	Ogre::Quaternion quat = mCameraNode->getOrientation();
-	Ogre::Vector3 posicio = mCameraNode->getPosition();
-	std::cerr << "rx: " <<  quat.x << " ry: " <<  quat.x << " rz: " <<  quat.x << " rw: " <<  quat.x << std::endl;
-	std::cerr << "x: " <<  posicio.x << " y: " <<  posicio.y << " z: " <<  posicio.z << std::endl << std::endl;*/
 
 	return mContinue;
 } 

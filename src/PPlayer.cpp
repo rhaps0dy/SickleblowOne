@@ -91,6 +91,6 @@ void PPlayer::update(Ogre::Real dt)
 	else
 		mCurAnim = 0;
 
-	mX = mBody->p.x / 100.;
-	mY = mBody->p.y / 100.;
+	mX = mBody->p.x;
+	mY = mBody->p.y;
 }

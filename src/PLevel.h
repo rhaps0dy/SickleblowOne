@@ -39,7 +39,7 @@ public:
 	virtual void update(Ogre::Real dt);
 
 	//constants del nivell
-	static constexpr cpFloat GRAVITY = -9.81f;
+	static constexpr cpFloat GRAVITY = -981.f;
 
 	static void bodyFreeWrap(cpSpace *space, cpBody *body, void *unused);
 	static void shapeFreeWrap(cpSpace *space, cpShape *shape, void *unused);

@@ -10,6 +10,7 @@ mLevelEnt(0), mLevelNode(0)
 	mLevelNode->setScale(.1f, .1f, .1f);
 	//mLevelNode->setDirection(-1.0f, 0.0f, 0.0f);
 
+	//el node terra es el node a partir del qual la posicio del jugador es calcula
 	mTerra =  mSceneMgr->getRootSceneNode()->createChildSceneNode("TerraNode", Ogre::Vector3(0.0f, 0.0f, 0.0f));
 }
 
