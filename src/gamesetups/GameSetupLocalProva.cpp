@@ -18,6 +18,7 @@ GameSetupLocalProva::~GameSetupLocalProva(void)
 	delete mLevel;
 	delete mLevelRenderer;
 	delete mPlayerRenderer;
+	delete mCameraMan;
 	//GameSetup::destroyAll();
 	ClassLoader::unloadKeyboardInterface();
 }

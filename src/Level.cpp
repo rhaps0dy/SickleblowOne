@@ -8,6 +8,9 @@ Level::Level(void)
 Level::~Level(void)
 {
 	mRegPlayers.clear();
+#ifndef NO_LOGS
+	std::cerr << "DESTRUIT LEVEL\n";
+#endif
 }
 
 inline

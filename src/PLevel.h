@@ -26,6 +26,7 @@ protected:
 	cpSpace *mSpace;
 	cpFloat accDt;
 	int mNumSegments;
+	static constexpr int ALLOC_GRANULARITY = 100;
 	cpShape **mSegments;
 	static constexpr cpFloat DTCHUNKSIZE = 0.0055555555555555555556f; // 1/(60*3)
 	
