@@ -1,7 +1,7 @@
 #include "PLevel.h"
 
 PLevel::PLevel(void)
-: mRegPlayers(0), mSpace(0), accDt(0.0f)
+: mRegPlayers(0), mSpace(0), accDt(0.0f), mNumSegments(0), mSegments(0)
 {
 	mSpace = cpSpaceNew();
 	mSpace->iterations = 10;
@@ -9,31 +9,34 @@ PLevel::PLevel(void)
 
 	FILE *lvcfile = fopen("media/levels/TempleSelva/TempleSelva.lvc", "r");
 	float x1, y1, x2, y2;
-	cpShape *shape;
+	mSegments = (cpShape **) malloc(ALLOC_GRANULARITY*sizeof(cpShape *));
 	do
 	{
+		mNumSegments++;
+		if((mNumSegments%ALLOC_GRANULARITY == 1) && (mNumSegments > ALLOC_GRANULARITY))
+			//necessitem augmentar la capacitat
+			mSegments = (cpShape **) realloc(mSegments, (mNumSegments+ALLOC_GRANULARITY-1)*sizeof(cpShape *) );
+
 		fscanf(lvcfile, "%f", &x1);
 		fscanf(lvcfile, "%f", &y1);
 		fscanf(lvcfile, "%f", &x2);
 		fscanf(lvcfile, "%f", &y2);
-		shape = cpSpaceAddShape(mSpace, cpSegmentShapeNew(mSpace->staticBody, cpv(x1*100,y1*100), cpv(x2*100,y2*100), 0.0f));
-		shape->e = 1.0f;
-		shape->u = 10.0f;
+		mSegments[mNumSegments-1] = cpSpaceAddShape(mSpace, cpSegmentShapeNew(mSpace->staticBody, cpv(x1*100,y1*100), cpv(x2*100,y2*100), 0.0f));
+		mSegments[mNumSegments-1]->e = 1.0f;
+		mSegments[mNumSegments-1]->u = 10.0f;
+		
 	}while(!feof(lvcfile));
 	fclose(lvcfile);
 }
 
 PLevel::~PLevel(void)
 {
-	std::cerr << "anem a fer shapes" << std::endl;
-	cpSpaceEachShape(mSpace, (cpSpaceShapeIteratorFunc)postShapeFree, mSpace);
-	std::cerr << "anem a fer constraints" << std::endl;
-	cpSpaceEachConstraint(mSpace, (cpSpaceConstraintIteratorFunc)postConstraintFree, mSpace);
-	std::cerr << "anem a fer bodies" << std::endl;
-	cpSpaceEachBody(mSpace, (cpSpaceBodyIteratorFunc)postBodyFree, mSpace);
-	std::cerr << "anem a fer spacefree" << std::endl;
+	for(register int i=0; i<mNumSegments; i++)
+	{
+		cpSpaceRemoveShape(mSpace, mSegments[i]);
+		cpShapeFree(mSegments[i]);
+	}
 	cpSpaceFree(mSpace);
-	std::cerr << "fi" << std::endl;
 }
 
 void PLevel::registerPlayer(PPlayer *pl)

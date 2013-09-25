@@ -23,7 +23,7 @@ int main(int argc, char **argv)
 		#ifdef NO_LOGS
 			Ogre::Root *lRoot = new Ogre::Root("", "", "");
 		#else
-			Ogre::Root *lRoot = new Ogre::Root("", "", "SickleblowOne.log");
+			Ogre::Root *lRoot = new Ogre::Root("", "", "skbl.log");
 		#endif
 		lRoot->loadPlugin("Plugin_OctreeSceneManager");
 		
@@ -74,7 +74,7 @@ int main(int argc, char **argv)
 		Ogre::RenderWindow *lWindow;
 		Ogre::NameValuePairList lParams;
 		lParams["vsync"] = "true";
-		lWindow = lRoot->createRenderWindow("Nyoro ~n", 1280, 720, false, &lParams);
+		lWindow = lRoot->createRenderWindow("De-geso~~~", 1280, 720, false, &lParams);
 		
 
     // Load resource paths from config file
@@ -106,7 +106,7 @@ int main(int argc, char **argv)
         }
     }
 		//Creem un GameSetup --provisional
-		GameSetup *lGameSetup = ClassLoader::makeGameSetupLocalProva(lRoot, lWindow, "pl_Boxejador", "lvl_Prova");
+		GameSetup *lGameSetup = ClassLoader::makeGameSetupLocalProva(lRoot, lWindow, "pl_Boxejador", "lv_Prova");
 		delete lGameSetup;
 		
 		ClassLoader::unloadGameSetupLocalProva();
