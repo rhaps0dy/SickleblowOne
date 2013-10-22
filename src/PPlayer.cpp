@@ -8,11 +8,11 @@ mBody(0), mGrounded(cpFalse), Player(iface)
 	mBody = cpBodyNew(mass, INFINITY);
 	mBody->velocity_func = bodyUpdateVelocity;
 	mBody->data = (cpDataPointer) this; // poder accedir al jugador des del cos
-	mShapes[0] = cpCircleShapeNew(mBody, 25., cpvzero);
+	mShapes[0] = cpCircleShapeNew(mBody, 25.f, cpvzero);
 	mShapes[0]->e = 0.0f;
 	mShapes[0]->u = 10.0f;
 	mShapes[0]->collision_type = 1;
-	cpBodySetPos(mBody, cpv(500, 100));
+	cpBodySetPos(mBody, cpv(0, 50));
 	update(0.0f);
 } 
 

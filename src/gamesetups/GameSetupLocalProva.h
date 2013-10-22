@@ -2,6 +2,7 @@
 #define _GameSetupLocalProva_h_
 
 #include "../GameSetup.h"
+#include "../PDebugger.h"
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
 	#ifdef BUILDING_GAMESETUPLOCALPROVA
@@ -30,6 +31,8 @@ private:
 	LevelRenderer *mLevelRenderer;
 	Interface *mInterface;
 	CameraMan *mCameraMan;
+
+	PDebugger *mDebugger;
 	
 	void createScene(void);
 	void loadResources(void);

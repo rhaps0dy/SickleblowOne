@@ -21,12 +21,9 @@ mContinue(true)
 	mCamera->setProjectionType(Ogre::PT_PERSPECTIVE);
 	mCamera->setFOVy(Ogre::Degree(40.));
 	mCamera->setNearClipDistance(1.0);
-	mCamera->setFarClipDistance(1000.0);
+	mCamera->setFarClipDistance(100000.0);
 	mCameraNode = mSceneMgr->createSceneNode("CameraNode");
 	mCameraNode->attachObject(mCamera);
-	mCameraNode->setPosition(0.0f, 0.0f, 8.0f);
-	mCameraNode->setDirection(0.0, 0.0, -1.0);	
-	
 
 	Ogre::WindowEventUtilities::addWindowEventListener(mWindow, this);
 	mRoot->addFrameListener(this);
@@ -36,10 +33,25 @@ mContinue(true)
 		Ogre::LogManager::getSingletonPtr()->logMessage("Inicialitzant OIS...");
 	#endif
 	
-    size_t windowHnd;
-    mWindow->getCustomAttribute("WINDOW", &windowHnd);
+	OIS::ParamList paramList;
+	size_t windowHnd;
+	std::ostringstream windowHndStr;
+	mWindow->getCustomAttribute("WINDOW", &windowHnd);
+	windowHndStr << windowHnd;
+	paramList.insert(std::make_pair(std::string("WINDOW"), windowHndStr.str()));
+#if defined OIS_WIN32_PLATFORM
+	paramList.insert(std::make_pair(std::string("w32_mouse"), std::string("DISCL_FOREGROUND" )));
+	paramList.insert(std::make_pair(std::string("w32_mouse"), std::string("DISCL_NONEXCLUSIVE")));
+	paramList.insert(std::make_pair(std::string("w32_keyboard"), std::string("DISCL_FOREGROUND")));
+	paramList.insert(std::make_pair(std::string("w32_keyboard"), std::string("DISCL_NONEXCLUSIVE")));
+#elif defined OIS_LINUX_PLATFORM
+	paramList.insert(std::make_pair(std::string("x11_mouse_grab"), std::string("false")));
+	paramList.insert(std::make_pair(std::string("x11_mouse_hide"), std::string("false")));
+	paramList.insert(std::make_pair(std::string("x11_keyboard_grab"), std::string("false")));
+	paramList.insert(std::make_pair(std::string("XAutoRepeatOn"), std::string("true")));
+#endif
     
-			mInputManager = OIS::InputManager::createInputSystem( windowHnd );
+			mInputManager = OIS::InputManager::createInputSystem( paramList );
 
     mKeyboard = static_cast<OIS::Keyboard*>(mInputManager->createInputObject( OIS::OISKeyboard, true ));
     mMouse = static_cast<OIS::Mouse*>(mInputManager->createInputObject( OIS::OISMouse, true ));
@@ -73,9 +85,11 @@ void GameSetup::destroyAll(void)
 	
 	mWindow->removeAllViewports();
 	
+	std::cerr << "segfault incoming 1" << std::endl;
 	if(mSceneMgr)
 	{
 		mRoot->destroySceneManager(mSceneMgr);
+	std::cerr << "segfault incoming 1" << std::endl;
 		mSceneMgr = 0;
 	}
 	if( mInputManager )

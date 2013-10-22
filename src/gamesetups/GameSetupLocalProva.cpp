@@ -13,6 +13,8 @@ GameSetupLocalProva::GameSetupLocalProva(Ogre::Root *root, Ogre::RenderWindow *r
 
 GameSetupLocalProva::~GameSetupLocalProva(void)
 {
+	delete mDebugger;
+
 	delete mPlayer;
 	mLevel->unregisterPlayer(mPlayer);
 	delete mLevel;
@@ -43,8 +45,10 @@ void GameSetupLocalProva::createScene(void)
 	
 	//renderers
 	mLevelRenderer = new LevelRenderer(mLevel, mRoot, mCamera, mSceneMgr);
-	mPlayerRenderer = new PlayerRenderer(mPlayer, mSceneMgr, mLevelRenderer->getTerra());
-	mCameraMan = new CameraMan(mPlayerRenderer->getPlayerNode(), mCameraNode);
+	mPlayerRenderer = new PlayerRenderer(mPlayer, mSceneMgr);
+	mCameraMan = new CameraMan(mPlayerRenderer->getPlayerNode(), mCameraNode, mMouse);
+
+	mDebugger = new PDebugger(mSceneMgr, mLevel, mPlayer);
 }
 
 void GameSetupLocalProva::loadResources(void)

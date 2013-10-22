@@ -39,14 +39,10 @@ public:
 	
 	virtual void update(Ogre::Real dt);
 
+	cpShape *getSegment(int i);
+
 	//constants del nivell
 	static constexpr cpFloat GRAVITY = -981.f;
 
-	static void bodyFreeWrap(cpSpace *space, cpBody *body, void *unused);
-	static void shapeFreeWrap(cpSpace *space, cpShape *shape, void *unused);
-	static void constraintFreeWrap(cpSpace *space, cpConstraint *constraint, void *unused);
-	static void postBodyFree(cpBody *body, cpSpace *space);
-	static void postConstraintFree(cpConstraint *constraint, cpSpace *space);
-	static void postShapeFree(cpShape *shape, cpSpace *space);
 };
 #endif //_PLevel_h_

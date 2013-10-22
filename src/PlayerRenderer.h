@@ -32,10 +32,9 @@ protected:
 	Ogre::SceneManager *mSceneMgr;
 	Ogre::Entity *mPlayerEnt;
 	Ogre::SceneNode *mPlayerNode;
-	Ogre::SceneNode *mTerra;
 
 public:
-	PlayerRenderer(Player *pl, Ogre::SceneManager *mgr, Ogre::SceneNode *terra);
+	PlayerRenderer(Player *pl, Ogre::SceneManager *mgr);
 	virtual ~PlayerRenderer(void);
 	virtual void update(Ogre::Real dt);
 

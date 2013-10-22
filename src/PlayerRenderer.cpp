@@ -1,18 +1,17 @@
 	#include "PlayerRenderer.h"
 
-PlayerRenderer::PlayerRenderer(Player *pl, Ogre::SceneManager *mgr, Ogre::SceneNode *terra) :
+PlayerRenderer::PlayerRenderer(Player *pl, Ogre::SceneManager *mgr) :
 mAnimPlaying(0), mAnimState(0), mPlayer(pl), mPrevDirection(0), 
-mSceneMgr(mgr), mPlayerEnt(0), mPlayerNode(0), mTerra(terra)
+mSceneMgr(mgr), mPlayerEnt(0), mPlayerNode(0)
 {
 	mAnimacions[0] = "parat_actiu";
 	mAnimacions[1] = "parat_tranquil";
 	mAnimacions[2] = "corrent";
 	mPlayerEnt = mSceneMgr->createEntity("Boxejador", "Boxejador.mesh");
-	mPlayerNode = mTerra->createChildSceneNode("Boxejador", Ogre::Vector3(0.0f, 0.0f, 0.0f));
+	mPlayerNode = mSceneMgr->getRootSceneNode()->createChildSceneNode("Boxejador", Ogre::Vector3(0.0f, 0.0f, 0.0f));
 	mPlayerNode->attachObject(mPlayerEnt);
 	//escalem el terra per a les proporcions de la simulacio fisica
-	mTerra->setScale(.01f, .01f, .01f);
-	mPlayerNode->setScale(15.f, 15.f, 15.f);
+	mPlayerNode->setScale(10.f, 10.f, 10.f);
 
 	//inicialitzem totes les animacions a loop
 	for(char i=0; i<numAnims; i++)

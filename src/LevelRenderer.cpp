@@ -7,11 +7,8 @@ mLevelEnt(0), mLevelNode(0)
 	mLevelEnt = mSceneMgr->createEntity("CProves", "Temple.mesh");
 	mLevelNode = mSceneMgr->getRootSceneNode()->createChildSceneNode("CProvesNode", Ogre::Vector3(0.0f, 0.0f, 0.0f));
 	mLevelNode->attachObject(mLevelEnt);
-	mLevelNode->setScale(.1f, .1f, .1f);
+	mLevelNode->setScale(10.f, 10.f, 10.f);
 	//mLevelNode->setDirection(-1.0f, 0.0f, 0.0f);
-
-	//el node terra es el node a partir del qual la posicio del jugador es calcula
-	mTerra =  mSceneMgr->getRootSceneNode()->createChildSceneNode("TerraNode", Ogre::Vector3(0.0f, 0.0f, 0.0f));
 }
 
 LevelRenderer::~LevelRenderer(void)
@@ -21,6 +18,7 @@ LevelRenderer::~LevelRenderer(void)
 	mSceneMgr->destroySceneNode(mTerra);
 	mLevelEnt = 0;
 	mLevelNode = 0;
+	std::cerr << "Destruit LevelREnderer" << std::endl;
 }
 
 void LevelRenderer::update(void)

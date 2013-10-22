@@ -9,6 +9,8 @@
 #include <OgreCamera.h>
 #include <OgreEntity.h>
 
+#include <chipmunk.h>
+
 #ifndef SKBLCORE
 	#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
 		#ifdef BUILDING_SKBLCORE
@@ -37,8 +39,6 @@ class SKBLCORE LevelRenderer
 		LevelRenderer(Level *lv, Ogre::Root *root, Ogre::Camera *cam, Ogre::SceneManager *mgr);
 		virtual ~LevelRenderer(void);
 		virtual void update(void);
-
-	inline Ogre::SceneNode* getTerra(void) { return mTerra; }
 };
 
 #endif //_LevelRenderer_h_
