@@ -11,10 +11,12 @@ Building
 
 Standard CMake procedure. You'll need Ogre3D and Chipmunk Physics.
 
+```
 mkdir build
 cd build
 cmake-gui .. #now configure your variables
 make && make install
+```
 
 Playing
 =======
